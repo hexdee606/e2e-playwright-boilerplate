@@ -3,3 +3,7 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+.features-gen/**/*
+package-lock.json
+.idea
+.idea/**/*

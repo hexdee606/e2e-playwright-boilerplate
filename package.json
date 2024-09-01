@@ -1,15 +1,44 @@
 {
-  "name": "test-two",
-  "version": "1.0.0",
+  "name": "end-to-end-playwright-test-automation-framework",
+  "version": "0.0.1",
+  "description": "A comprehensive end-to-end test automation framework using Playwright with BDD, Allure reporting, fixtures, and utilities.",
+  "keywords": [
+    "playwright",
+    "end-to-end",
+    "test automation",
+    "BDD",
+    "Allure",
+    "reporting",
+    "fixtures",
+    "utils"
+  ],
+  "homepage": "https://github.com/hexdee606/end-to-end-playwright-test-automation-framework",
+  "bugs": {
+    "url": "https://github.com/hexdee606/end-to-end-playwright-test-automation-framework/issues",
+    "email": "support@example.com"
+  },
+  "license": "CC0-1.0",
+  "author": "hexdee606 <hexdee606@gmail.com> (https://github.com/hexdee606)",
+  "contributors": [
+    "Afroj <email@email.com>"
+  ],
   "main": "index.js",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
+  "bin": {},
+  "scripts": {
+    "test": "playwright test"
+  },
+  "dependencies": {
     "@playwright/test": "^1.46.1",
-    "@types/node": "^22.5.1",
+    "exceljs": "^4.4.0",
+    "playwright": "^1.46.1",
+    "playwright-lighthouse": "^4.0.0"
+  },
+  "devDependencies": {
+    "allure-playwright": "^3.0.0-beta.11",
     "playwright-bdd": "^7.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hexdee606/end-to-end-playwright-test-automation-framework.git"
   }
 }
