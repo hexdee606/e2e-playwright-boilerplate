@@ -25,7 +25,13 @@
   "main": "index.js",
   "bin": {},
   "scripts": {
-    "test": "playwright test"
+    "test:e2e": "bddgen && playwright test",
+    "test:parallel": "bddgen && playwright test --workers=4 ",
+    "test:smoke": "bddgen && playwright test --grep @smoke",
+    "test:debug": "bddgen && playwright test -g @debug --debug",
+    "test:report-serve": "allure serve ./outputs/allure-results --clean",
+    "test:report-generate": "allure generate ./outputs/allure-results --clean -o ./allure-report",
+    "test:report-open": "allure open ./allure-report"
   },
   "dependencies": {
     "@playwright/test": "^1.46.1",
@@ -35,7 +41,8 @@
   },
   "devDependencies": {
     "allure-playwright": "^3.0.0-beta.11",
-    "playwright-bdd": "^7.2.2"
+    "playwright-bdd": "^7.2.2",
+    "allure-commandline": "^2.30.0"
   },
   "repository": {
     "type": "git",

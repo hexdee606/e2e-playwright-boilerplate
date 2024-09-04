@@ -1,6 +1,7 @@
 // @ts-check
 const {defineConfig, devices} = require("@playwright/test");
 const {defineBddConfig} = require("playwright-bdd");
+const os = require('node:os');
 // require('./config/global.variables.conf');
 /**
  * Read environment variables from file.
@@ -44,7 +45,21 @@ module.exports = defineConfig({
     workers: process.env.CI ? 1 : undefined,
 
     // Reporter to use
-    reporter: "html",
+    reporter: [
+        ["allure-playwright",
+            {
+                detail: true,
+                resultsDir: "./output/allure-results",
+                outputFolder: "./output/allure-results",
+                suiteTitle: true,
+                environmentInfo: {
+                    framework: "playwright",
+                    OS: os.platform(),
+                    Architecture: os.arch(),
+                    NodeVersion: process.version,
+                }
+            },]
+    ],
 
     // Shared settings for all the projects below
     use: {
@@ -137,6 +152,7 @@ module.exports = defineConfig({
         {
             name: "chromium",
             use: {...devices["Desktop Chrome"]},
+            fullyParallel: true,
         },
         // {
         //   name: "firefox",

@@ -22,14 +22,14 @@ class api_support {
      */
     async sendDeleteRequest(endpoint = "/", headers = {}) {
         try {
-            const client = await request.newContext(); // Create a new request context
+            const context = await request.newContext(); // Create a new request context
             const baseUrl = env_url.apiConf.end_point.endsWith("/")
                 ? env_url.apiConf.end_point.slice(0, -1)
                 : env_url.apiConf.end_point;
             const normalizedEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
             const fullUrl = `${baseUrl}/${normalizedEndpoint}`;
 
-            return await client.delete(fullUrl, {
+            return await context.delete(fullUrl, {
                 headers: { ...env_url.apiConf.headers, ...headers }
             });
         } catch (error) {
@@ -47,14 +47,14 @@ class api_support {
      */
     async sendGetRequest(endpoint = "/", headers = {}) {
         try {
-            const client = await request.newContext(); // Create a new request context
+            const context = await request.newContext(); // Create a new request context
             const baseUrl = env_url.apiConf.end_point.endsWith("/")
                 ? env_url.apiConf.end_point.slice(0, -1)
                 : env_url.apiConf.end_point;
             const normalizedEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
             const fullUrl = `${baseUrl}/${normalizedEndpoint}`;
 
-            return await client.get(fullUrl, {
+            return await context.get(fullUrl, {
                 headers: { ...env_url.apiConf.headers, ...headers }
             });
         } catch (error) {
@@ -73,14 +73,14 @@ class api_support {
      */
     async sendPatchRequest(endpoint = "/", data = {}, headers = {}) {
         try {
-            const client = await request.newContext(); // Create a new request context
+            const context = await request.newContext(); // Create a new request context
             const baseUrl = env_url.apiConf.end_point.endsWith("/")
                 ? env_url.apiConf.end_point.slice(0, -1)
                 : env_url.apiConf.end_point;
             const normalizedEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
             const fullUrl = `${baseUrl}/${normalizedEndpoint}`;
 
-            return await client.patch(fullUrl, {
+            return await context.patch(fullUrl, {
                 data,
                 headers: { ...env_url.apiConf.headers, ...headers }
             });
@@ -100,14 +100,14 @@ class api_support {
      */
     async sendPostRequest(endpoint = "/", data = {}, headers = {}) {
         try {
-            const client = await request.newContext(); // Create a new request context
+            const context = await request.newContext(); // Create a new request context
             const baseUrl = env_url.apiConf.end_point.endsWith("/")
                 ? env_url.apiConf.end_point.slice(0, -1)
                 : env_url.apiConf.end_point;
             const normalizedEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
             const fullUrl = `${baseUrl}/${normalizedEndpoint}`;
 
-            return await client.post(fullUrl, {
+            return await context.post(fullUrl, {
                 data,
                 headers: { ...env_url.apiConf.headers, ...headers }
             });
@@ -127,14 +127,14 @@ class api_support {
      */
     async sendPutRequest(endpoint = "/", data = {}, headers = {}) {
         try {
-            const client = await request.newContext(); // Create a new request context
+            const context = await request.newContext(); // Create a new request context
             const baseUrl = env_url.apiConf.end_point.endsWith("/")
                 ? env_url.apiConf.end_point.slice(0, -1)
                 : env_url.apiConf.end_point;
             const normalizedEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
             const fullUrl = `${baseUrl}/${normalizedEndpoint}`;
 
-            return await client.put(fullUrl, {
+            return await context.put(fullUrl, {
                 data,
                 headers: { ...env_url.apiConf.headers, ...headers }
             });

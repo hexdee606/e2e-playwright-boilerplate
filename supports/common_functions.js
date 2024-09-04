@@ -3,10 +3,6 @@ const { writeFileSync, unlinkSync, readdirSync, statSync, rmdirSync, existsSync 
 const path = require('path');
 
 class common_function {
-    constructor(page) {
-        this.page = page;
-    }
-
     /**
      * Recursively deletes a directory and its contents.
      * @param {string} dir - The directory to delete.
@@ -47,10 +43,11 @@ class common_function {
 
     /**
      * Verifies the presence of text from an object array in the UI.
+     * @param {Page} page - The Playwright page object.
      * @param {Object} inputs - The object containing text to verify.
      * @param {number} [sec=10] - The number of seconds to wait (default time is 10 sec).
      */
-    async verifyAssertiveTextWithArray(inputs, sec = 10) {
+    async verifyAssertiveTextWithArray(page, inputs, sec = 10) {
         const assertText = {};
 
         function recursiveTextGrab(obj, currentKey = '') {
@@ -70,8 +67,8 @@ class common_function {
             const texts = Array.isArray(assertText[key]) ? assertText[key] : [assertText[key]];
             for (const text of texts) {
                 const locator = `//*[contains(text(),'${text}')] | //span[contains(.,'${text}')] | //*[contains(@placeholder, "${text}")]`;
-                await this.page.waitForSelector(locator, { timeout: sec * 1000 });
-                const element = await this.page.$(locator);
+                await page.waitForSelector(locator, { timeout: sec * 1000 });
+                const element = await page.$(locator);
                 if (!element) {
                     throw new Error(`Text "${text}" not found within ${sec} seconds.`);
                 }
@@ -207,4 +204,4 @@ class common_function {
     }
 }
 
-module.exports = common_function;
+module.exports = new common_function();

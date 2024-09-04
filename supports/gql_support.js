@@ -1,4 +1,4 @@
-const { request } = require('@playwright/test');
+const {request} = require('@playwright/test');
 
 if (!env_url.gqlConf.end_point) {
     throw new Error("GraphQL endpoint is not defined in the environment configuration.");
@@ -8,9 +8,6 @@ if (!env_url.gqlConf.end_point) {
  * GraphQLHelper class for managing GraphQL queries and mutations using Playwright's request API.
  */
 class graphql_support {
-    constructor() {
-        this.request = request;
-    }
 
     /**
      * Sends a GraphQL query to the specified endpoint.
@@ -26,12 +23,11 @@ class graphql_support {
             variables
         });
 
-        const context = await this.request.newContext();
+        const context = await request.newContext();
         try {
             return await context.post(env_url.gqlConf.end_point, {
                 data: body,
                 headers: {
-                    'Content-Type': 'application/json',
                     ...env_url.gqlConf.headers,
                     ...headers
                 }
@@ -56,12 +52,11 @@ class graphql_support {
             variables
         });
 
-        const context = await this.request.newContext();
+        const context = await request.newContext();
         try {
             return await context.post(env_url.gqlConf.end_point, {
                 data: body,
                 headers: {
-                    'Content-Type': 'application/json',
                     ...env_url.gqlConf.headers,
                     ...headers
                 }
