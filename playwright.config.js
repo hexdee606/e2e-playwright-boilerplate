@@ -1,191 +1,129 @@
-// @ts-check
-const {defineConfig, devices} = require("@playwright/test");
-const {defineBddConfig} = require("playwright-bdd");
-const os = require('node:os');
-// require('./config/global.variables.conf');
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config({ path: path.resolve(__dirname, '.env') });
+//@ts-check
 
 /**
- * @see https://playwright.dev/docs/test-configuration
+ * Playwright Configuration File
+ *
+ * This configuration file sets up the Playwright testing framework with various options
+ * for running end-to-end tests. It includes project settings, reporter configurations,
+ * and global timeouts to ensure efficient and organized test execution.
+ *
+ * Author: HEXDEE606
+ * Created On: 2024-09-21
+ * Version: 1.0.0
  */
 
-// Define BDD configuration with all options
-const bddConfig = defineBddConfig({
-    features: "src/features/**/*.feature", // Path(s) to feature files
-    steps: "src/step_definitions/**/*.js", // Path(s) to step definitions
-    // outputDir: "features-gen", // Directory to output generated test files
-    // featuresRoot: ".", // Base directory for feature files
-    // language: "en", // Default language for feature files
-    // examplesTitleFormat: "Example #<_index_>", // Title format for Scenario Outline examples
-    // quotes: "double", // Quotes style in generated test files
-    // tags: "@desktop and not @slow", // Tags expression to filter scenarios
-    verbose: true, // Verbose output
-    // enrichReporterData: true, // Add special attachments with BDD data
-    // statefulPoms: false, // Enable strict guessing of fixtures
+import {resolve} from 'path';                                               // Import path resolver
+import {platform, arch} from 'os';                                          // Import OS information
+import {defineConfig} from '@playwright/test';                              // Import Playwright config function
+import {defineBddConfig} from 'playwright-bdd';                             // Import BDD config function
+import './config/global.conf';                                              // Load global configuration settings
+
+// Define BDD configuration for feature files and step definitions
+defineBddConfig({
+    features: resolve(__dirname, './src/tests/features/**/*.feature'),      // Path to feature files
+    steps: resolve(__dirname, './src/tests/step_definitions/**/*_steps.js'),// Path to step definitions
+    statefulPoms: true,                                                     // Enable stateful POMs (Page Object Models)
+    outputDir: resolve(__dirname, './src/features-gen'),                    // Output directory for generated files
+    verbose: verbose                                                        // Enable verbose logging for more detailed output during execution
 });
 
+// Exporting Playwright configuration using the defineConfig function
 module.exports = defineConfig({
-    // Directory where your tests are located
-    testDir: '.features-gen',
+    // General configuration settings for the test suite
+    name: "End-to-End Testing",                                             // Descriptive name for the test suite
+    fullyParallel: true,                                                    // Set to true to enable parallel execution of tests
+    timeout: 5 * 60 * 1000,                                                 // Timeout for individual tests in milliseconds (5 minutes)
+    globalTimeout: 5 * 60 * 1000,                                           // Global timeout for all tests in milliseconds (5 minutes)
+    outputDir: resolve(__dirname, "./reports/test-results"),                // Directory for storing test results
 
-    // Run tests in files in parallel
-    fullyParallel: true,
-
-    // Fail the build on CI if you accidentally left test.only in the source code
-    forbidOnly: !!process.env.CI,
-
-    // Retry on CI only
-    retries: process.env.CI ? 2 : 0,
-
-    // Opt out of parallel tests on CI
-    workers: process.env.CI ? 1 : undefined,
-
-    // Reporter to use
-    reporter: [
-        ["allure-playwright",
-            {
-                detail: true,
-                resultsDir: "./output/allure-results",
-                outputFolder: "./output/allure-results",
-                suiteTitle: true,
-                environmentInfo: {
-                    framework: "playwright",
-                    OS: os.platform(),
-                    Architecture: os.arch(),
-                    NodeVersion: process.version,
-                }
-            },]
-    ],
-
-    // Shared settings for all the projects below
-    use: {
-        globalFiles: require('./config/global.variables.conf'),
-        // Base URL to use in actions like `await page.goto('/')`
-        baseURL: env_url.ui,
-
-        // Collect trace when retrying the failed test
-        trace: "on-first-retry", // 'on', 'on-first-retry', 'retain-on-failure', 'off'
-
-        // Video recording configuration
-        video: "retain-on-failure", // 'on', 'retain-on-failure', 'off'
-
-        // Screenshot configuration
-        screenshot: "only-on-failure", // 'on', 'only-on-failure', 'off'
-
-        // Browser launch options
-        launchOptions: {
-            headless: false, // Run browser in headless mode (default: true)
-            slowMo: 0, // Slow down operations by milliseconds (default: 0)
-            args: [
-                // Browser arguments
-                "--no-sandbox", // Disable sandboxing (useful for CI)
-                "--disable-setuid-sandbox", // Disable setuid sandbox (useful for CI)
-                "--disable-web-security", // Disable web security features
-                "--disable-gpu", // Disable GPU hardware acceleration
-                "--disable-dev-shm-usage", // Disable /dev/shm usage
-                "--disable-infobars", // Disable infobars
-                "--start-maximized", // Start browser maximized
-                "--incognito", // Launch browser in incognito mode
-                // "--headless", // Launch browser in headless mode
-                // "--remote-debugging-port=9222", // Port for remote debugging
-            ],
-            // devtools: false, // Open DevTools when launching the browser (default: false)
-            // executablePath: "", // Path to a custom browser executable (default: '')
-            timeout: 30000, // Maximum time to wait for browser to start (default: 30000ms)
-            // channel: "", // Specify browser channel (e.g., 'chrome', 'msedge') (default: '')
-            // proxy: null, // Proxy settings (default: null)
-            // dumpio: false, // Whether to dump browser process stdout and stderr (default: false)
-        },
-
-        // Browser context options
-        contextOptions: {
-            // viewport: {width: 1280, height: 720}, // Default viewport size
-            // userAgent: "", // User agent string
-            ignoreHTTPSErrors: false, // Ignore HTTPS errors (default: false)
-            // geolocation: null, // Geolocation settings (default: null)
-            // locale: 'en-US', // Locale
-            // timezoneId: 'America/New_York', // Timezone ID
-            permissions: [
-                // Permissions to grant
-                // 'geolocation', // Allow geolocation access
-                // 'notifications', // Allow notifications
-                // 'camera', // Allow camera access
-                // 'microphone', // Allow microphone access
-                // 'fullscreen', // Allow fullscreen mode
-                // 'payment', // Allow payment requests
-                // 'background-sync', // Allow background synchronization
-                // 'midi', // Allow MIDI access
-                // 'push', // Allow push notifications
-                // 'storage' // Allow storage access
-            ],
-            // storageState: null, // Path to a JSON file with storage state (default: null)
-            // javaScriptEnabled: true, // Whether to enable JavaScript (default: true)
-            // deviceScaleFactor: 1, // Device scale factor (default: 1)
-            // isMobile: false, // Whether to emulate a mobile device (default: false)
-            // hasTouch: false, // Whether to emulate touch events (default: false)
-            // colorScheme: "light", // Emulated color scheme ('light' or 'dark')
-            // reducedMotion: "no-preference", // Emulated reduced motion preference ('reduce', 'no-preference')
-            // prefersReducedTransparency: 'no-preference', // Emulated reduced transparency preference ('reduce', 'no-preference')
-            // prefersReducedData: 'no-preference' // Emulated reduced data preference ('reduce', 'no-preference')
-        },
-
-        // HTTP credentials for authentication
-        // httpCredentials: null, // HTTP credentials (username and password) (default: null)
-
-        // Proxy settings
-        // proxy: {
-        //   server: "", // Proxy server address (default: '')
-        //   username: "", // Proxy username (optional)
-        //   password: "", // Proxy password (optional)
-        // },
-
-        // Custom storage state file
-        // storageState: null, // Path to a JSON file with storage state (default: null)
+    // Metadata providing additional information about the test suite
+    metadata: {
+        author: "HEXDEE606",                                                // Author of the test suite
+        createdOn: new Date().toISOString(),                                // Timestamp of when the configuration was created
+        version: "1.0.0",                                                   // Version of the test suite configuration
     },
 
-    // Projects configuration for running tests across different browsers
+    // Test execution settings
+    reportSlowTests: null,                                                  // Set to true to report tests that exceed a certain duration
+    retries: 3,                                                             // Number of retries for failed tests
+    respectGitIgnore: true,                                                 // Respect .gitignore files when running tests
+    testDir: resolve(__dirname, './src/features-gen'),                      // Directory containing test files
+    workers: 4,                                                             // Number of parallel workers to run tests
+
+    // Configuration options for browser context
+    use: {
+        headless: false,                                                    // Run tests with a UI (set to true for headless)
+        acceptDownloads: true,                                              // Allow downloads during tests
+        actionTimeout: 2 * 60 * 1000,                                       // Timeout for actions (e.g., clicks, fills) in milliseconds
+        browserName: 'chromium',                                            // Specify the browser to use for tests
+        bypassCSP: true,                                                    // Bypass Content Security Policy (CSP)
+        navigationTimeout: 60 * 60 * 1000,                                  // Global timeout for navigation actions in milliseconds
+
+        // Launch options for browser instances
+        launchOptions: {
+            args: [
+                '--start-maximized',                                        // Start the browser maximized
+                '--disable-infobars',                                       // Disable infobars
+                '--disable-popup-blocking',                                 // Disable popup blocking
+                '--disable-notifications',                                  // Disable notifications
+                '--no-sandbox',                                             // Bypass OS security model (useful in CI environments)
+                '--disable-dev-shm-usage',                                  // Overcome limited resource problems
+                '--disable-extensions',                                     // Disable extensions
+                '--remote-debugging-port=9222',                             // Enable remote debugging
+                '--incognito',                                              // Open in incognito mode
+                '--enable-automation',                                      // Enable automation features
+                '--disable-gpu',                                            // Disable GPU hardware acceleration
+                '--disable-web-security',                                   // Disable web security (use with caution)
+                '--allow-file-access-from-files',                           // Allow file access from local files
+                '--no-proxy-server',                                        // Do not use a proxy server
+                '--proxy-bypass-list=*',                                    // Bypass the proxy for all requests
+                '--enable-logging',                                         // Enable logging
+                '--v=1',                                                    // Set verbosity level (1-3)
+            ],
+        },
+
+        // Settings for capturing screenshots, videos, and traces
+        screenshot: 'only-on-failure',                                      // Capture screenshots only on failure
+        video: 'on-first-retry',                                            // Record video on the first retry
+        trace: 'on-first-retry',                                            // Capture trace on the first retry
+        viewport: null,                                                     // Use the default viewport size
+        baseURL: envConf.frontend.url,                                      // Base URL for the frontend application
+    },
+
+    // Project configurations for different test suites with specific tags
     projects: [
         {
-            name: "chromium",
-            use: {...devices["Desktop Chrome"]},
-            fullyParallel: true,
+            name: 'Suite 1',                                                // Name of the project suite
+            grep: /@suite1/,                                                // Tag to filter tests for this suite
         },
-        // {
-        //   name: "firefox",
-        //   use: { ...devices["Desktop Firefox"] },
-        // },
-        // {
-        //   name: "webkit",
-        //   use: { ...devices["Desktop Safari"] },
-        // },
-        // Test against mobile viewports
-        // {
-        //   name: 'Mobile Chrome',
-        //   use: { ...devices['Pixel 5'] },
-        // },
-        // {
-        //   name: 'Mobile Safari',
-        //   use: { ...devices['iPhone 12'] },
-        // },
-        // Test against branded browsers
-        // {
-        //   name: 'Microsoft Edge',
-        //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-        // },
-        // {
-        //   name: 'Google Chrome',
-        //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-        // },
+        {
+            name: 'Suite 2',                                                // Name of the project suite
+            grep: /@suite2/,                                                // Tag to filter tests for this suite
+        },
+        {
+            name: 'Suite 3',                                                // Name of the project suite
+            grep: /@suite3/,                                                // Tag to filter tests for this suite
+        },
+        {
+            name: 'Suite 4',                                                // Name of the project suite
+            grep: /@suite4/,                                                // Tag to filter tests for this suite
+        },
     ],
 
-    // Run your local dev server before starting the tests
-    // webServer: {
-    //   command: 'npm run start',
-    //   url: 'http://127.0.0.1:3000',
-    //   reuseExistingServer: !process.env.CI,
-    // },
+    // Reporter settings for test results output
+    reporter: [
+        ["list", {printSteps: true}],                                       // Console output format with step printing
+        ["allure-playwright", {
+            details: true,                                                  // Disable detailed logging in Allure reports
+            suiteTitle: true,                                               // Enable suite title in Allure reports
+            resultsDir: resolve(__dirname, "./reports/allure-results"),     // Directory for Allure results
+            outputFolder: resolve(__dirname, "./reports/allure-results"),   // Output folder for Allure reports
+            environmentInfo: {
+                Framework: "Playwright",                                    // Framework used for testing
+                OS: platform(),                                             // Operating system of the test execution environment
+                Architecture: arch(),                                       // Architecture of the test execution environment
+                Node_Version: process.version,                              // Node.js version being used
+            },
+        }],
+    ],
 });

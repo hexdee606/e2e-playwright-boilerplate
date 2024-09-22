@@ -1,16 +1,44 @@
+/**
+ * env.conf.js
+ *
+ * Configuration module for environment-specific settings.
+ * This module exports an object containing the environment (defaulting to 'int')
+ * and configuration details for various environments (integration, staging, and production).
+ *
+ * Each environment configuration includes:
+ * - frontend: Base URL for the frontend application
+ * - backend:
+ *   - api: Base URL for the REST API
+ *   - gql: Base URL for the GraphQL API
+ *
+ * Usage:
+ * - Access the current environment's configuration using `currentConfig`.
+ *
+ * Author: Hexdee606
+ * Date: 2024-09-21
+ */
+
 const envConf = {
-    'env': process.env.E2E_ENV || 'int',
-    'int': {
-        'web': {
-            host_url: 'https://automationexercise.com'
-        },
-        'restApi': {
-            end_point: 'https://petstore.swagger.io/v2'
-        },
-        'gql': {
-            end_point: 'https://graphqlzero.almansi.me/api'
+    env: process.env.E2E || 'int',
+    configs: {
+        int: {
+            frontend: {
+                url: 'https://www.google.com' // Main URL for the frontend
+            },
+            backend: {
+                api: {
+                    url: 'https://your-integration-api-url.com' // Base URL for REST API
+                },
+                gql: {
+                    url: 'https://your-integration-gql-url.com' // Base URL for GraphQL API
+                }
+            }
         }
+        // Additional environments can be added here
     }
 };
+
+// Example of how to access the configuration based on the current environment
+// const currentConfig = envConf.configs[envConf.env];
 
 module.exports = envConf;
