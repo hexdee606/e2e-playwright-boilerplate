@@ -4,7 +4,7 @@
  * This class provides a collection of utility functions for various common operations,
  * including directory management, string manipulation, date formatting, and Excel file handling.
  *
- * Author: Dipen Chavan
+ * Author: Hexdee606
  * Date: 2024-09-29
  */
 
@@ -129,20 +129,16 @@ class CommonFunctions {
      * @param {number} value - The value to check.
      * @param {number} min - The minimum value.
      * @param {number} max - The maximum value.
-     * @param {boolean} [isFindBudget=false] - Flag indicating if it’s for budget finding.
      * @returns {boolean} True if the value is within the range, false otherwise.
-     * @throws {Error} Throws an error if the value is out of range (unless isFindBudget is true).
+     * @throws {Error} Throws an error if the value is out of range.
      */
-    async verifyValueIsInBetween(value, min, max, isFindBudget = false) {
+    async verifyValueIsInBetween(value, min, max) {
         if (typeof value !== 'number' || typeof min !== 'number' || typeof max !== 'number') {
             console.error('Invalid input. Please provide valid numbers for value, min, and max.');
             return false;
         }
         if (value < min || value > max) {
-            if (!isFindBudget) {
-                throw new Error(`Value (${value}) is not between ${min} and ${max}.`);
-            }
-            return false;
+            throw new Error(`Value (${value}) is not between ${min} and ${max}.`);
         }
         console.log(`Value (${value}) is between ${min} and ${max}.`);
         return true;
@@ -226,21 +222,6 @@ class CommonFunctions {
      */
     async capitalizeFirstWord(str) {
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-    }
-
-    /**
-     * Wraps a string to a specified length, optionally including an ellipsis.
-     * @param {string} string - The string to wrap.
-     * @param {number} len - The length to wrap to.
-     * @param {boolean} [includeEllipsis=false] - Whether to include an ellipsis.
-     * @returns {string} The wrapped string.
-     */
-    async charWrap(string, len, includeEllipsis = false) {
-        if (string.length <= len) {
-            return string;
-        } else {
-            return includeEllipsis ? `${string.substring(0, len)}...` : string.substring(0, len);
-        }
     }
 
     /**

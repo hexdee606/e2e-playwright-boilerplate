@@ -7,7 +7,7 @@
  * for running end-to-end tests. It includes project settings, reporter configurations,
  * and global timeouts to ensure efficient and organized test execution.
  *
- * Author: Dipen Chavan
+ * Author: Hexdee606
  * Created On: 2024-09-21
  * Version: 1.0.0
  */

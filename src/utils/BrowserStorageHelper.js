@@ -4,7 +4,7 @@
  * This class provides methods for managing browser storage (local and session) using Playwright.
  * It allows for retrieval of keys and values from local storage and session storage within iframes.
  *
- * Author: Dipen Chavan
+ * Author: Hexdee606
  * Date: 2024-09-29
  */
 

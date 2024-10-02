@@ -7,7 +7,7 @@
  * The class allows for chaining configuration and returns only the specified
  * keys from the filtered results.
  *
- * Author: Dipen Chavan
+ * Author: Hexdee606
  * Date: 2024-09-22
  *
  * Usage:
