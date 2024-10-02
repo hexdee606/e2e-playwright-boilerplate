@@ -6,7 +6,7 @@ import {request} from '@playwright/test';
  * This class provides methods to facilitate sending GraphQL queries using Playwright's request context.
  * It allows for configuration of request settings such as timeout and retry options.
  *
- * Author: Dipen Chavan
+ * Author: Hexdee606
  * Date: 2024-09-22
  */
 

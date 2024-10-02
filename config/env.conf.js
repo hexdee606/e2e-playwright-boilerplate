@@ -14,7 +14,7 @@
  * Usage:
  * - Access the current environment's configuration using `currentConfig`.
  *
- * Author: Dipen Chavan
+ * Author: Hexdee606
  * Date: 2024-09-21
  */
 

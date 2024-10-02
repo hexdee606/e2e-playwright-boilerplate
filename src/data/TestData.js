@@ -7,10 +7,8 @@
  * Usage:
  * - Import this module to access test data in your tests or other application components.
  *
- * Author: Dipen Chavan
+ * Author: Hexdee606
  * Date: 2024-09-21
  */
 
-module.exports = {
-    getProjectList: {}
-};
+module.exports = {};

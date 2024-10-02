@@ -5,7 +5,7 @@
  * for interacting with frames and elements within a Playwright test context. It includes
  * methods for switching to frames, interacting with UI components, and performing common actions.
  *
- * Author: Dipen Chavan
+ * Author: Hexdee606
  * Date: 2024-09-22
  */
 
