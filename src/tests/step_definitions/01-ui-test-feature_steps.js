@@ -6,7 +6,6 @@ const ui_test_scenario_page = require("../pages/01-ui-test-scenario_page");
 Given(/^the user is on the homepage$/, async function ({page}) {
     await page.goto("");
     await page.waitForLoadState("load");
-    await page.pause();
 });
 When(/^the user clicks on the "([^"]*)" button$/, async function ({page}, buttonText) {
     await PlaywrightActions.waitAndClick(page, `//*[text()="${buttonText}"]`);
