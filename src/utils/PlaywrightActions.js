@@ -14,6 +14,7 @@ import {expect, Page} from '@playwright/test';
 class PlaywrightActions {
 
     constructor() {
+        this.frame = null;
         this.setFramePath = "" // Holds the current frame xpath, if applicable
         this.setFrame = false; // Indicates whether a frame has been set
     }
@@ -303,8 +304,7 @@ class PlaywrightActions {
         await this.verboseLog('Selecting dropdown option', optionSelector, 'Attempting to select dropdown option.');
         const frame = await this.switchFrame(page);
         const dropdown = await frame.locator(dropdownSelector);
-        await dropdown.click(); // Open the dropdown
-        await dropdown.locator(optionSelector).click(); // Select the option
+        await dropdown.selectOption(optionSelector); // Select the option
         await this.verboseLog('Selected dropdown option', optionSelector, 'Dropdown option has been selected successfully.');
     }
 

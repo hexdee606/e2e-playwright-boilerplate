@@ -23,14 +23,14 @@ const envConf = {
     configs: {
         'int': {
             frontend: {
-                url: '' // Main URL for the frontend
+                url: 'https://automationexercise.com' // Main URL for the frontend
             },
             backend: {
                 api: {
-                    url: '' // Base URL for REST API
+                    url: 'https://petstore.swagger.io/v2' // Base URL for REST API
                 },
                 gql: {
-                    url: '' // Base URL for GraphQL API
+                    url: 'https://graphqlzero.almansi.me/api' // Base URL for GraphQL API
                 }
             }
         },
