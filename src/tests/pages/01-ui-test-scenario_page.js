@@ -42,10 +42,6 @@ class ui_test_scenario_page {
         await PlaywrightActions.waitAndSee(page, dynamicLocators.validateText(data.Name));
         await PlaywrightActions.waitAndSee(page, dynamicLocators.validateText(data.Email));
         await PlaywrightActions.waitAndFillField(page, dynamicLocators.fillTextBox("password"), data.Password);
-        await page.pause();
-        // await page.locator('#days').selectOption('1');
-        // await page.locator('#months').selectOption('1');
-        // await page.locator('#years').selectOption('2021');
         await PlaywrightActions.selectDropdownOption(page, '#days',data.dateOfBirth.day)
         await PlaywrightActions.selectDropdownOption(page,'#months', data.dateOfBirth.month);
         await PlaywrightActions.selectDropdownOption(page,'#years', data.dateOfBirth.year);
