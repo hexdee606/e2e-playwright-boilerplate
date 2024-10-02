@@ -45,7 +45,8 @@
     "allure-playwright": "^3.0.4",
     "exceljs": "^4.4.0",
     "lodash": "^4.17.21",
-    "playwright-bdd": "^7.4.2"
+    "playwright-bdd": "^7.4.2",
+    "chai": "^4.5.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

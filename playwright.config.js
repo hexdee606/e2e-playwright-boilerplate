@@ -44,7 +44,7 @@ module.exports = defineConfig({
 
     // Test execution settings
     reportSlowTests: null,                                                  // Set to true to report tests that exceed a certain duration
-    retries: 1,                                                             // Number of retries for failed tests
+    // retries: 1,                                                             // Number of retries for failed tests
     respectGitIgnore: true,                                                 // Respect .gitignore files when running tests
     testDir: resolve(__dirname, './src/features-gen'),                      // Directory containing test files
     workers: 4,                                                             // Number of parallel workers to run tests

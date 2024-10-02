@@ -33,5 +33,7 @@ module.exports = {
             zipcode: "411006",
             mobileNumber: "9999999999"
         }
-    }
+    },
+    api_response: {},
+    gql_response: {}
 };
