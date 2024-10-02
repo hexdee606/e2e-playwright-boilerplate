@@ -1,5 +1,5 @@
 /**
- * dataFilter.js
+ * JSON handler to filter JSON Data array
  *
  * This module defines the DataFilter class, which provides utility methods
  * for filtering JSON objects based on specified criteria. It supports various
@@ -7,7 +7,7 @@
  * The class allows for chaining configuration and returns only the specified
  * keys from the filtered results.
  *
- * Author: Your Name
+ * Author: Dipen Chavan
  * Date: 2024-09-22
  *
  * Usage:

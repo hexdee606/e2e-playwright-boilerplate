@@ -7,7 +7,7 @@
  * for running end-to-end tests. It includes project settings, reporter configurations,
  * and global timeouts to ensure efficient and organized test execution.
  *
- * Author: HEXDEE606
+ * Author: Dipen Chavan
  * Created On: 2024-09-21
  * Version: 1.0.0
  */
@@ -38,14 +38,13 @@ module.exports = defineConfig({
 
     // Metadata providing additional information about the test suite
     metadata: {
-        author: "HEXDEE606",                                                // Author of the test suite
         createdOn: new Date().toISOString(),                                // Timestamp of when the configuration was created
         version: "1.0.0",                                                   // Version of the test suite configuration
     },
 
     // Test execution settings
     reportSlowTests: null,                                                  // Set to true to report tests that exceed a certain duration
-    retries: 3,                                                             // Number of retries for failed tests
+    retries: 1,                                                             // Number of retries for failed tests
     respectGitIgnore: true,                                                 // Respect .gitignore files when running tests
     testDir: resolve(__dirname, './src/features-gen'),                      // Directory containing test files
     workers: 4,                                                             // Number of parallel workers to run tests
@@ -61,22 +60,21 @@ module.exports = defineConfig({
 
         // Launch options for browser instances
         launchOptions: {
+            slowMo: 2 * 1000,                                               // Slow down operations by 1000 milliseconds for easier debugging
+            downloadsPath: resolve(__dirname, './src/downloads'),           // Set the path for downloaded files
+            timeout: 5 * 60 * 1000,                                         // Set a timeout of 5 minutes for actions (in milliseconds)
+            chromiumSandbox: false,                                         // Disable the Chromium sandbox (use with caution, typically in CI environments)
             args: [
                 '--start-maximized',                                        // Start the browser maximized
-                '--disable-infobars',                                       // Disable infobars
+                '--disable-infobars',                                       // Disable info bars
                 '--disable-popup-blocking',                                 // Disable popup blocking
-                '--disable-notifications',                                  // Disable notifications
                 '--no-sandbox',                                             // Bypass OS security model (useful in CI environments)
                 '--disable-dev-shm-usage',                                  // Overcome limited resource problems
                 '--disable-extensions',                                     // Disable extensions
-                '--remote-debugging-port=9222',                             // Enable remote debugging
                 '--incognito',                                              // Open in incognito mode
                 '--enable-automation',                                      // Enable automation features
                 '--disable-gpu',                                            // Disable GPU hardware acceleration
-                '--disable-web-security',                                   // Disable web security (use with caution)
                 '--allow-file-access-from-files',                           // Allow file access from local files
-                '--no-proxy-server',                                        // Do not use a proxy server
-                '--proxy-bypass-list=*',                                    // Bypass the proxy for all requests
                 '--enable-logging',                                         // Enable logging
                 '--v=1',                                                    // Set verbosity level (1-3)
             ],
@@ -91,28 +89,26 @@ module.exports = defineConfig({
     },
 
     // Project configurations for different test suites with specific tags
-    projects: [
-        {
-            name: 'Suite 1',                                                // Name of the project suite
-            grep: /@suite1/,                                                // Tag to filter tests for this suite
-        },
-        {
-            name: 'Suite 2',                                                // Name of the project suite
-            grep: /@suite2/,                                                // Tag to filter tests for this suite
-        },
-        {
-            name: 'Suite 3',                                                // Name of the project suite
-            grep: /@suite3/,                                                // Tag to filter tests for this suite
-        },
-        {
-            name: 'Suite 4',                                                // Name of the project suite
-            grep: /@suite4/,                                                // Tag to filter tests for this suite
-        },
-    ],
+    projects: [{
+        name: 'Suit 1',                                                     // Name of the project suit
+        grep: /@suit1/,                                                     // Tag to filter tests for this suit
+        fullyParallel: false,                                               // Set to true to enable parallel execution of tests
+    }, {
+        name: 'Suit 2',                                                     // Name of the project suit
+        grep: /@suit2/,                                                     // Tag to filter tests for this suit
+        fullyParallel: false,                                               // Set to true to enable parallel execution of tests
+    }, {
+        name: 'Suit 3',                                                     // Name of the project suit
+        grep: /@suit3/,                                                     // Tag to filter tests for this suit
+        fullyParallel: false,                                               // Set to true to enable parallel execution of tests
+    }, {
+        name: 'Suit 4',                                                     // Name of the project suit
+        grep: /@suit4/,                                                     // Tag to filter tests for this suit
+        fullyParallel: false,                                               // Set to true to enable parallel execution of tests
+    },],
 
     // Reporter settings for test results output
-    reporter: [
-        ["list", {printSteps: true}],                                       // Console output format with step printing
+    reporter: [["list", {printSteps: true}],                                // Console output format with step printing
         ["allure-playwright", {
             details: true,                                                  // Disable detailed logging in Allure reports
             suiteTitle: true,                                               // Enable suite title in Allure reports
@@ -124,6 +120,5 @@ module.exports = defineConfig({
                 Architecture: arch(),                                       // Architecture of the test execution environment
                 Node_Version: process.version,                              // Node.js version being used
             },
-        }],
-    ],
+        }],],
 });

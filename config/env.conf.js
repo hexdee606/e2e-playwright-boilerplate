@@ -14,26 +14,27 @@
  * Usage:
  * - Access the current environment's configuration using `currentConfig`.
  *
- * Author: Hexdee606
+ * Author: Dipen Chavan
  * Date: 2024-09-21
  */
 
 const envConf = {
     env: process.env.E2E || 'int',
     configs: {
-        int: {
+        'int': {
             frontend: {
-                url: 'https://www.google.com' // Main URL for the frontend
+                url: '' // Main URL for the frontend
             },
             backend: {
                 api: {
-                    url: 'https://your-integration-api-url.com' // Base URL for REST API
+                    url: '' // Base URL for REST API
                 },
                 gql: {
-                    url: 'https://your-integration-gql-url.com' // Base URL for GraphQL API
+                    url: '' // Base URL for GraphQL API
                 }
             }
-        }
+        },
+
         // Additional environments can be added here
     }
 };

@@ -1,10 +1,16 @@
 {
   "name": "playwright-end-to-end-testing-framework",
-  "description": "A powerful testing framework using Playwright for GraphQL and REST APIs with support for reporting, bdd, and more.",
+  "description": "A powerful testing framework using Playwright for GraphQL and REST APIs with support for reporting, BDD, and more.",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test"
+    "test:e2e": "bddgen && playwright test",
+    "test:parallel": "bddgen && playwright test --workers=4",
+    "test:smoke": "bddgen && playwright test --grep @smoke",
+    "test:debug": "bddgen && playwright test --grep @debug --debug",
+    "test:report-serve": "allure serve ./reports/allure-results",
+    "test:report-generate": "allure generate ./reports/allure-results --clean -o ./reports/allure-report",
+    "test:report-open": "allure open ./reports/allure-report"
   },
   "keywords": [
     "playwright",
@@ -14,31 +20,34 @@
     "api",
     "json",
     "reporting",
-    "logging",
-    "accessibility"
+    "logging"
   ],
-  "author": "Your Name",
-  "license": "ISC",
+  "author": "hexdee606 <10842172+hexdee606@users.noreply.github.com>",
+  "license": "CC0-1.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/playwright-testing-framework.git"
+    "url": "git+https://github.com/hexdee606/e2e-playwright-boilerplate.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/playwright-testing-framework/issues"
+    "url": "https://github.com/hexdee606/e2e-playwright-boilerplate/issues"
   },
-  "homepage": "https://github.com/yourusername/playwright-testing-framework#readme",
+  "homepage": "https://github.com/hexdee606/e2e-playwright-boilerplate",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=20.16.0",
+    "npm": ">=10.8.1"
+  },
+  "config": {
+    "logLevel": "info"
   },
   "devDependencies": {
     "@playwright/test": "^1.47.2",
-    "playwright-bdd": "^7.4.0",
-    "allure-playwright": "^3.0.1",
     "allure-commandline": "^2.30.0",
+    "allure-playwright": "^3.0.4",
     "exceljs": "^4.4.0",
     "lodash": "^4.17.21",
-    "dotenv": "^16.4.5",
-    "@faker-js/faker": "^9.0.1",
-    "@axe-core/playwright": "^4.10.0"
+    "playwright-bdd": "^7.4.2"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }

@@ -6,7 +6,7 @@ import {request} from '@playwright/test';
  * This class provides methods to facilitate sending API requests using Playwright's request context.
  * It allows for configuration of request settings such as timeout and retry options.
  *
- * Author: HEXDEE606
+ * Author: Dipen Chavan
  * Date: 2024-09-22
  */
 
@@ -50,10 +50,10 @@ class ApiHelper {
      */
     async verboseLog(url, options, response) {
         if (verbose) {
-            console.debug('API Request Debug Information:');
-            console.debug('URL:', url);
-            console.debug('Options:', options);
-            console.debug('Response:', await response.json());
+            await console.debug('API Request Debug Information:');
+            await console.debug('URL:', url);
+            await console.debug('Options:', options);
+            await console.debug('Response:', JSON.stringify(await response.json(), null, 2));
         }
     }
 
@@ -69,13 +69,14 @@ class ApiHelper {
      */
     async sendRequest(endpoint, method, body = {}, headers = {}) {
         const context = await request.newContext();
-        const url = `${backend.apiUrl}/${endpoint}`;
+        const baseUrl = backend.apiUrl.endsWith("/") ? backend.apiUrl.slice(0, -1) : backend.apiUrl;
+        const normalizedEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
+        const url = `${baseUrl}/${normalizedEndpoint}`;
         const options = {
             method: method,
             data: JSON.stringify(body),
             headers: {
-                ...backend.headers.api,
-                ...headers
+                ...backend.headers.api, ...headers
             },
             timeout: this.setConf.timeout,
             maxRetries: this.setConf.maxRetries,

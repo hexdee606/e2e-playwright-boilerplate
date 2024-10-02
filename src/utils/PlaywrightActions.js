@@ -1,21 +1,34 @@
 /**
- * playwrightActions.js
+ * Playwright Customised Actions
  *
  * This module defines the PlaywrightActions class, which provides utility methods
  * for interacting with frames and elements within a Playwright test context. It includes
  * methods for switching to frames, interacting with UI components, and performing common actions.
  *
- * Author: Hexdee606
+ * Author: Dipen Chavan
  * Date: 2024-09-22
  */
 
-import {Page, expect} from '@playwright/test';
+import {expect, Page} from '@playwright/test';
 
 class PlaywrightActions {
+
     constructor() {
-        this.frame = null; // Holds the current frame locator, if applicable
+        this.setFramePath = "" // Holds the current frame xpath, if applicable
         this.setFrame = false; // Indicates whether a frame has been set
     }
+
+    /**
+     * Retrieves the current frame status, including the path and the frame setting.
+     *
+     * @returns {Object} An object containing the current frame status:
+     *                  - {string} setFramePath - The path of the current frame.
+     *                  - {Function} setFrame - A function to set the current frame.
+     */
+    getCurrentFrameStatus() {
+        return { setFramePath: this.setFrame, setFrame: this.setFrame };
+    }
+
 
     /**
      * Logs debug information if verbose mode is enabled.
@@ -32,7 +45,6 @@ class PlaywrightActions {
         }
     }
 
-
     /**
      * Switches the context to a specified frame using a selector.
      *
@@ -46,6 +58,7 @@ class PlaywrightActions {
             const frameElement = page.locator(selector);
             await frameElement.waitFor({state: 'attached'});
             this.setFrame = true;
+            this.setFramePath = selector;
             this.frame = await page.frameLocator(selector);
             await this.verboseLog('Switched to frame', selector, 'Frame has been successfully located.');
         } else {
@@ -64,7 +77,7 @@ class PlaywrightActions {
     async switchFrame(page) {
         const currentContext = this.setFrame ? 'iFrame' : 'Main Page';
         await this.verboseLog('Switching frame context', '', `Current context is: ${currentContext}`);
-        const result = this.setFrame ? this.frame : page;
+        const result = this.setFrame ? await page.frameLocator(this.setFramePath) : page;
         await this.verboseLog('Context switched', '', `Now using context: ${this.setFrame ? 'iFrame' : 'Main Page'}`);
         return result;
     }
@@ -112,6 +125,7 @@ class PlaywrightActions {
         await this.verboseLog('Unchecking checkbox', selector, 'Attempting to uncheck checkbox.');
         const frame = await this.switchFrame(page);
         const checkbox = await frame.locator(selector);
+        await checkbox.waitFor({state: 'visible'});
         if (await checkbox.isChecked()) {
             await checkbox.setChecked(false);
             await expect(checkbox).not.toBeChecked();
@@ -133,6 +147,7 @@ class PlaywrightActions {
         await this.verboseLog('Selecting radio button', selector, 'Attempting to select radio button.');
         const frame = await this.switchFrame(page);
         const radioButton = await frame.locator(selector);
+        await radioButton.waitFor({state: 'visible'});
         await radioButton.setChecked(true);
         await this.verboseLog('Selected radio button', selector, 'Radio button has been selected successfully.');
     }
@@ -145,12 +160,31 @@ class PlaywrightActions {
      * @param {string} text - The text to fill in the input.
      * @returns {Promise<void>}
      */
-    async fillText(page, selector, text) {
+    async waitAndFillField(page, selector, text) {
         await this.verboseLog('Filling text', selector, `Attempting to fill text: "${text}".`);
         const frame = await this.switchFrame(page);
         const input = await frame.locator(selector);
+        await input.waitFor({state: 'visible'});
         await input.fill(text);
         await this.verboseLog('Filled text', selector, `Filled text: "${text}"`);
+    }
+
+    /**
+     * Fills a text input element sequentially.
+     *
+     * @param {Page} page - The Playwright Page object.
+     * @param {string} selector - The selector for the text input.
+     * @param {string} text - The text to fill in the input.
+     * @returns {Promise<void>}
+     */
+    async waitAndFillFieldSequentially(page, selector, text) {
+        await this.verboseLog('Filling text', selector, `Attempting to fill text Sequentially: "${text}".`);
+        const frame = await this.switchFrame(page);
+        const input = await frame.locator(selector);
+        await input.waitFor({state: 'visible'});
+        await this.clearText(page, selector);
+        await input.pressSequentially(text);
+        await this.verboseLog('Filled text', selector, `Filled text Sequentially: "${text}"`);
     }
 
     /**
@@ -212,7 +246,7 @@ class PlaywrightActions {
         await this.verboseLog('Validating element is enabled', selector, 'Checking if element is enabled.');
         const frame = await this.switchFrame(page);
         const element = await frame.locator(selector);
-
+        await element.waitFor({state: 'visible'});
         // Assert that the element is enabled
         await expect(element).toBeEnabled();
 
@@ -315,9 +349,25 @@ class PlaywrightActions {
     async waitAndSee(page, selector) {
         await this.verboseLog('Waiting for element to be visible', selector, 'Waiting for visibility.');
         const frame = await this.switchFrame(page);
-        const element = await frame.locator(selector);
+        const element = await frame.locator(selector).first();
         await element.waitFor({state: 'visible'});
         await this.verboseLog('Waited for element to be visible', selector, 'Element is now visible.');
+    }
+
+    /**
+     * Waits for an element to be visible and then performs a hover action on it.
+     *
+     * @param {Page} page - The Playwright Page object.
+     * @param {string} selector - The selector for the element to wait for.
+     * @returns {Promise<void>}
+     */
+    async mouseHover(page, selector) {
+        await this.verboseLog('Waiting for element to be visible', selector, 'Waiting for visibility.');
+        const frame = await this.switchFrame(page);
+        const element = frame.locator(selector);
+        await element.waitFor({state: 'visible'});
+        await element.hover();
+        await this.verboseLog('Element is now visible and hovered', selector, 'Hover action completed.');
     }
 
     /**
@@ -333,6 +383,22 @@ class PlaywrightActions {
         return url;
     }
 
+    /**
+     * Waits for an element to be visible on the specified page.
+     *
+     * @param {Page} page - The Playwright Page object representing the current page.
+     * @param {string} selector - The selector for the element to wait for visibility.
+     * @returns {Promise<boolean>} - A promise that resolves to true if the element is visible, or false if it is not.
+     */
+    async waitAndVisible(page, selector) {
+        await this.verboseLog('Waiting for element to be visible', selector, 'Waiting for visibility.');
+        const frame = await this.switchFrame(page);
+        return await frame.locator(selector).waitFor({state: 'visible', timeout: 5000})
+            .then(() => true)
+            .catch(() => false);
+    }
+
+
     // Keyboard Interaction Methods
 
     /**
@@ -344,8 +410,7 @@ class PlaywrightActions {
      */
     async pressKey(page, key) {
         await this.verboseLog('Pressing key', key, 'Attempting to press key.');
-        const frame = await this.switchFrame(page);
-        await frame.keyboard.press(key);
+        await page.keyboard.press(key);
         await this.verboseLog('Pressed key', key, 'Key has been pressed successfully.');
     }
 
@@ -358,8 +423,7 @@ class PlaywrightActions {
      */
     async holdKey(page, key) {
         await this.verboseLog('Holding key', key, 'Attempting to hold key.');
-        const frame = await this.switchFrame(page);
-        await frame.keyboard.down(key);
+        await page.keyboard.down(key);
         await this.verboseLog('Held key', key, 'Key is being held down.');
     }
 
@@ -372,8 +436,7 @@ class PlaywrightActions {
      */
     async releaseKey(page, key) {
         await this.verboseLog('Releasing key', key, 'Attempting to release key.');
-        const frame = await this.switchFrame(page);
-        await frame.keyboard.up(key);
+        await page.keyboard.up(key);
         await this.verboseLog('Released key', key, 'Key has been released successfully.');
     }
 
