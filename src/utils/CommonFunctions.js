@@ -67,7 +67,7 @@ class CommonFunctions {
         const assertText = {};
 
         const recursiveTextGrab = async (obj, currentKey = '') => {
-            for await (const key in obj) {
+            for (const key in obj) {
                 const newKey = currentKey ? `${currentKey}.${key}` : key;
                 if (typeof obj[key] === 'object') {
                     await recursiveTextGrab(obj[key], newKey);
@@ -79,9 +79,9 @@ class CommonFunctions {
 
         await recursiveTextGrab(inputs);
 
-        for await (const key in assertText) {
+        for  (const key in assertText) {
             const texts = Array.isArray(assertText[key]) ? assertText[key] : [assertText[key]];
-            for await (const text of texts) {
+            for  (const text of texts) {
                 try {
                     await PlaywrightActions.waitAndSee(page, this.verifyAssertiveTextWithArraySelector(text));
                 } catch {
