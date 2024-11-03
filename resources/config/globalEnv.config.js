@@ -20,7 +20,7 @@
  */
 
 import {resolve} from 'path'; // Importing path module
-import {env, configs} from './env.conf';
+import {env, configs} from './env.config';
 
 global.envConf = {
     frontend: {
@@ -49,16 +49,17 @@ global.envConf = {
 };
 
 // Additional global variables using path.resolve for absolute paths
-global.TestData = require('../src/data/TestData'); // Common test data for the application
-global.AssertiveStrings = require('../src/data/AssertiveStrings'); // UI text data for validation
+global.TestData = require('../data/testData'); // Common test data for the application
+global.AssertiveStrings = require('../data/assertiveStrings'); // UI text data for validation
 
 // Customised helpers/utils global import for use
-global.ApiHelper = require('../src/utils/ApiHelper'); // Importing the ApiHelper utility to manage API requests globally
-global.GraphqlHelper = require('../src/utils/GraphqlHelper'); // Importing the GraphqlHelper utility to manage GraphQL requests globally
-global.JsonHelper = require('../src/utils/JsonHelper'); // Importing the JsonHelper utility to handle JSON filtering globally
-global.PlaywrightActions = require('../src/utils/PlaywrightActions'); // Importing the PlaywrightActions utility to perform Playwright-specific actions globally
-global.BrowserStorageHelper = require('../src/utils/BrowserStorageHelper'); // Importing the BrowserStorageHelper utility to manage browser storage globally
-global.CommonFunctions = require('../src/utils/CommonFunctions'); // Importing the CommonFunctions utility for shared functions across tests
+global.ApiHelper = require('../utils/ApiHelper'); // Importing the ApiHelper utility to manage API requests globally
+global.GraphqlHelper = require('../utils/GraphqlHelper'); // Importing the GraphqlHelper utility to manage GraphQL requests globally
+global.JsonHelper = require('../utils/JsonHelper'); // Importing the JsonHelper utility to handle JSON filtering globally
+global.PlaywrightActions = require('../utils/PlaywrightActions'); // Importing the PlaywrightActions utility to perform Playwright-specific actions globally
+global.BrowserStorageHelper = require('../utils/BrowserStorageHelper'); // Importing the BrowserStorageHelper utility to manage browser storage globally
+global.CommonFunctions = require('../utils/CommonFunctions'); // Importing the CommonFunctions utility for shared functions across tests
+global.AccessibilityHelper = require("../utils/AccessibilityHelper"); // Importing the AccessibilityHelper utility for conducting accessibility tests across applications
 
 
 // Additional global variables

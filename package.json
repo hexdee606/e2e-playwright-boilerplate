@@ -8,9 +8,9 @@
     "test:parallel": "bddgen && playwright test --workers=4",
     "test:smoke": "bddgen && playwright test --grep @smoke",
     "test:debug": "bddgen && playwright test --grep @debug --debug",
-    "test:report-serve": "allure serve ./reports/allure-results",
-    "test:report-generate": "allure generate ./reports/allure-results --clean -o ./reports/allure-report",
-    "test:report-open": "allure open ./reports/allure-report"
+    "test:report-serve": "allure serve ./resources/test-results/allure-results",
+    "test:report-generate": "allure generate ./resources/test-results/allure-results --clean -o ./resources/test-results/allure-results",
+    "test:report-open": "allure open ./resources/test-results/allure-results"
   },
   "keywords": [
     "playwright",
@@ -40,13 +40,15 @@
     "logLevel": "info"
   },
   "devDependencies": {
-    "@playwright/test": "^1.47.2",
-    "allure-commandline": "^2.30.0",
-    "allure-playwright": "^3.0.4",
+    "@playwright/test": "^1.48.2",
+    "allure-commandline": "^2.32.0",
+    "allure-playwright": "^3.0.6",
     "exceljs": "^4.4.0",
     "lodash": "^4.17.21",
-    "playwright-bdd": "^7.4.2",
-    "chai": "^4.5.0"
+    "playwright-bdd": "^7.5.0",
+    "@types/node": "^22.8.6",
+    "zod": "^3.23.8",
+    "@axe-core/playwright": "^4.10.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

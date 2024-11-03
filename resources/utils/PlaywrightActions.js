@@ -27,7 +27,7 @@ class PlaywrightActions {
      *                  - {Function} setFrame - A function to set the current frame.
      */
     getCurrentFrameStatus() {
-        return { setFramePath: this.setFrame, setFrame: this.setFrame };
+        return {setFramePath: this.setFrame, setFrame: this.setFrame};
     }
 
 
@@ -98,6 +98,30 @@ class PlaywrightActions {
         await this.verboseLog('Element visibility', selector, 'Element is now visible.');
         await element.click();
         await this.verboseLog('Clicked element', selector, 'Element has been clicked successfully.');
+    }
+
+    /**
+     * Waits for an element to be visible and retrieves its X and Y coordinates.
+     *
+     * @param {Page} page - The Playwright Page object representing the current page.
+     * @param {string} selector - The selector for the element to wait for and get coordinates from.
+     * @returns {Promise<{x: number, y: number}>} - An object containing the X and Y coordinates of the element.
+     */
+    async waitAndGetXYCoordinates(page, selector) {
+        await this.verboseLog('Waiting for element to be visible', selector, 'Getting current frame or main page.');
+        const frame = await this.switchFrame(page);
+        const element = await frame.locator(selector);
+
+        await element.waitFor({state: 'visible'});
+        await this.verboseLog('Element visibility', selector, 'Element is now visible.');
+
+        const box = await element.boundingBox();
+        if (!box) {
+            throw new Error(`Element with selector "${selector}" is not visible.`);
+        }
+
+        await this.verboseLog('Retrieved coordinates', selector, `Coordinates: X=${box.x}, Y=${box.y}`);
+        return {x: box.x, y: box.y, box: box};
     }
 
     /**
@@ -237,6 +261,38 @@ class PlaywrightActions {
     }
 
     /**
+     * Retrieves the inner text of a specified element.
+     *
+     * @param {Page} page - The Playwright Page object.
+     * @param {string} selector - The selector for the element.
+     * @returns {Promise<string>} - The inner text of the specified element.
+     */
+    async getTextFromInnerText(page, selector) {
+        await this.verboseLog('Retrieving inner text from element', selector, 'Getting inner text.');
+        const frame = await this.switchFrame(page);
+        const element = await frame.locator(selector);
+        const value = await element.innerText();
+        await this.verboseLog('Retrieved inner text from element', selector, `Value: "${value}"`);
+        return value;
+    }
+
+    /**
+     * Retrieves the value of a specified input element.
+     *
+     * @param {Page} page - The Playwright Page object.
+     * @param {string} selector - The selector for the input element.
+     * @returns {Promise<string>} - The value of the input element.
+     */
+    async getInputValue(page, selector) {
+        await this.verboseLog('Retrieving value from input element', selector, 'Getting input value.');
+        const frame = await this.switchFrame(page);
+        const element = await frame.locator(selector);
+        const value = await element.inputValue();
+        await this.verboseLog('Retrieved value from input element', selector, `Value: "${value}"`);
+        return value;
+    }
+
+    /**
      * Validates if an element is enabled.
      *
      * @param {Page} page - The Playwright Page object.
@@ -273,6 +329,35 @@ class PlaywrightActions {
         await this.verboseLog('Validated element is disabled', selector, 'Element is disabled.');
     }
 
+    /**
+     * Validates that a specified element is editable.
+     *
+     * @param {Page} page - The Playwright Page object.
+     * @param {string} selector - The selector for the element.
+     * @returns {Promise<boolean>} - True if the element is editable, false otherwise.
+     */
+    async validateElementIsEditable(page, selector) {
+        await this.verboseLog('Validating if element is editable', selector, 'Checking editability.');
+        const frame = await this.switchFrame(page);
+        const element = await frame.locator(selector);
+        await expect(element).toBeEditable();
+        await this.verboseLog('Validation result for editable element', selector, `Is editable`);
+    }
+
+    /**
+     * Validates that a specified element is read-only.
+     *
+     * @param {Page} page - The Playwright Page object.
+     * @param {string} selector - The selector for the element.
+     * @returns {Promise<boolean>} - True if the element is read-only, false otherwise.
+     */
+    async validateElementIsReadOnly(page, selector) {
+        await this.verboseLog('Validating if element is read-only', selector, 'Checking read-only status.');
+        const frame = await this.switchFrame(page);
+        const element = await frame.locator(selector);
+        await expect(element).not.toBeEditable();
+        await this.verboseLog('Validation result for read-only element', selector, `Is read-only`);
+    }
 
     /**
      * Validates if a checkbox or radio button is selected.
@@ -286,11 +371,8 @@ class PlaywrightActions {
         const frame = await this.switchFrame(page);
         const element = await frame.locator(selector);
         await expect(element).toBeChecked();
-        await this.verboseLog('Validated element is selected', selector, `Is Selected: ${isSelected}`);
+        await this.verboseLog('Validated element is selected', selector, `Is Selected`);
     }
-
-
-    // New Methods for Additional UI Components
 
     /**
      * Selects an option from a dropdown menu.

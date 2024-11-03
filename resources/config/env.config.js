@@ -23,7 +23,7 @@ const envConf = {
     configs: {
         'int': {
             frontend: {
-                url: 'https://automationexercise.com' // Main URL for the frontend
+                url: 'https://letcode.in/' // Main URL for the frontend
             },
             backend: {
                 api: {
