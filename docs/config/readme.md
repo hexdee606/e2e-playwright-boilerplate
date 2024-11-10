@@ -1,97 +1,111 @@
-# Configuration Modules
+# 🌍 **Configuration Modules**
 
-## Overview
+## 📌 **Overview**
 
-This repository includes two important configuration modules for your Node.js application: `env.conf.js` and `global.conf.js`. Together, they provide a centralized way to manage environment-specific settings and global configurations, ensuring your application operates smoothly across different environments.
+This repository includes two key configuration modules designed for efficient management of environment-specific and
+global configurations within your Node.js application:  
+**`env.conf.js`** and **`global.conf.js`**. These modules centralize the management of configurations, ensuring a
+consistent and smooth operation across different environments and services.
 
-## 1. Environment Configuration Module (`env.conf.js`)
+---
 
-The `env.conf.js` module manages environment-specific settings and configurations for the application.
+## 🛠️ **1. Environment Configuration Module (`env.conf.js`)**
 
-### Features
+The **Environment Configuration Module** (`env.conf.js`) helps you manage environment-specific settings and
+configurations for your application. It's essential for defining different behaviors and URLs based on the environment (
+e.g., development, staging, production).
 
-- **Environment Management**: Supports multiple environments, with a default set to 'int' (integration). Easily switch environments using the `E2E` environment variable.
-- **Configurable URLs**: Provides base URLs for frontend and backend services (REST and GraphQL).
+### 🚀 **Features**
 
-### Structure
+- **🌍 Multi-Environment Support**: Switch seamlessly between environments (default: `int` for integration). Simply
+  change the `E2E` environment variable to toggle configurations.
+- **🔗 Configurable URLs**: Easily manage base URLs for frontend and backend services (REST and GraphQL APIs).
 
-The module exports an object containing:
+### 🗂️ **Structure**
 
-- **env**: The current environment, defaulting to 'int'.
-- **configs**: An object with configurations for various environments, including:
-  - **frontend**: Base URL for the frontend application.
-  - **backend**: 
-    - **api**: Base URL for the REST API.
-    - **gql**: Base URL for the GraphQL API.
+The module exports a configuration object with these key properties:
 
-### Usage
+- **`env`**: The active environment, defaulting to `int`.
+- **`configs`**: A collection of environment-specific configurations:
+    - **`frontend`**: Base URL for the frontend application.
+    - **`backend`**:
+        - **`api`**: Base URL for the REST API.
+        - **`gql`**: Base URL for the GraphQL API.
 
-To access the current environment's configuration:
+### 📝 **Usage**
+
+To access the current environment's configuration, simply require the module and reference the desired property:
 
 ```javascript
 const envConf = require('./env.conf.js');
 
-// Access the current environment configuration
+// Access the current environment's configuration
 const currentConfig = envConf.configs[envConf.env];
 
 // Example: Logging the frontend URL
 console.log('Frontend URL:', currentConfig.frontend.url);
 ```
 
-## 2. Global Configuration Module (`global.conf.js`)
+---
 
-The `global.conf.js` module sets up global configuration variables and paths for the Node.js application.
+## 🌐 **2. Global Configuration Module (`global.conf.js`)**
 
-### Features
+The **Global Configuration Module** (`global.conf.js`) provides global configuration values that are shared across the
+entire application, allowing for easy management of environment variables, paths, and common utilities.
 
-- **Global Access**: Provides configuration details that can be accessed globally throughout the application.
-- **Flexible Environment Configuration**: Works with environment variables to enable easy switching between configurations.
-- **Common Variables**: Defines paths for commonly used resources and shared data structures.
+### 🚀 **Features**
 
-### Structure
+- **🌍 Global Access**: Provides a global configuration accessible throughout the application.
+- **⚙️ Flexible Environment Configuration**: Supports dynamic switching based on environment variables.
+- **🔧 Common Variables**: Defines paths for essential resources and shared structures.
 
-The module defines `global.envConf` with the following properties:
+### 🗂️ **Structure**
 
-- **frontend**:
+This module includes a `global.envConf` object with the following properties:
+
+- **`frontend`**:
     - `url`: The base URL for the frontend application.
-- **backend**:
-    - `apiUrl`: The backend REST API URL.
-    - `gqlUrl`: The GraphQL API URL.
-    - **headers**:
+- **`backend`**:
+    - `apiUrl`: The URL for the REST API.
+    - `gqlUrl`: The URL for the GraphQL API.
+    - **`headers`**:
         - `api`: Default headers for REST API requests.
         - `gql`: Default headers for GraphQL requests.
 
-### Environment Variables
+### 🔑 **Environment Variables**
 
-Utilizes the following environment variables:
+The following environment variables are available:
 
-- **E2E**: Specifies the current environment (e.g., 'int', 'staging', 'production').
-- **GQL_TOKEN**: Optional authorization token for GraphQL requests.
+- **`E2E`**: Specifies the current environment (e.g., `int`, `staging`, `production`).
+- **`GQL_TOKEN`**: Optional token for GraphQL authorization.
 
-### Common Variables
+### 🗂️ **Common Variables**
 
-- **FILE_PATH**: Path to common resources or files used throughout the application.
+- **`FILE_PATH`**: A reference path for common resources or files shared throughout the application.
 
-### Global Utilities
+### 🔧 **Global Utilities**
 
-Several utility modules are available globally:
+Several utility modules are globally available, such as:
 
-- `global.TestData`: Common test data.
-- `global.AssertiveStrings`: UI text data for validation.
-- `global.ApiHelper`: Utility for managing API requests.
+- `global.TestData`: Contains common test data.
+- `global.AssertiveStrings`: Text data for UI validation.
+- `global.ApiHelper`: Utility for handling API requests.
 - `global.GraphqlHelper`: Utility for managing GraphQL requests.
-- `global.JsonHelper`: Utility for handling JSON filtering.
-- `global.PlaywrightActions`: Utility for Playwright-specific actions.
+- `global.JsonHelper`: Utility for working with JSON.
+- `global.PlaywrightActions`: Utility for Playwright-related actions.
 - `global.BrowserStorageHelper`: Utility for managing browser storage.
-- `global.CommonFunctions`: Shared functions for use across tests.
+- `global.CommonFunctions`: Shared functions across tests.
+- `global.AccessibilityHelper`: Utility for conducting accessibility tests across applications.
 
-### Logging
+### 📋 **Logging**
 
-- **global.verbose**: A boolean that enables verbose logging for detailed output during execution.
+- **`global.verbose`**: A boolean that enables detailed verbose logging during execution.
 
-### Usage
+---
 
-You can access global configurations and utilities anywhere in your application:
+### 📝 **Usage**
+
+Accessing global configurations and utilities is easy throughout your application:
 
 ```javascript
 // Accessing the frontend URL
@@ -100,16 +114,62 @@ console.log('Frontend URL:', envConf.frontend.url);
 // Accessing the backend API URL
 console.log('Backend API URL:', envConf.backend.apiUrl);
 
-// Utilizing a helper function
+// Using a helper function
 ApiHelper.someFunction();
 ```
 
-## Author
+---
+
+## ⚡ **Quick Start Guide**
+
+To get started, follow these simple steps:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://your-repository-url.git
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Set the environment variables**:
+   Set the required environment variables (e.g., `E2E` for environment, `GQL_TOKEN` for GraphQL access).
+
+4. **Run your application**:
+   ```bash
+   npm run start
+   ```
+
+---
+
+## 💡 **Tips for Configuration**
+
+- **Environment Switching**: If you need to switch between different environments, just update the `E2E` environment
+  variable. For instance:
+  ```bash
+  export E2E=staging
+  ```
+
+- **Custom Headers**: For custom API integrations, modify the headers within `global.conf.js` under the `headers`
+  section.
+
+- **Verbose Logging**: To get more detailed logs, enable `global.verbose` and check your console for additional insights
+  into the application’s behavior.
+
+---
+
+## 👤 **Author**
 
 **Hexdee606**  
-*Date: 2024-09-21*
+*Date: November 10, 2024*
 
-## Notes
+---
 
-- Ensure to define necessary environment variables before running the application to avoid configuration issues.
-- Modify the header properties in the `headers` section of `global.conf.js` as needed for specific API integrations.
+## ⚠️ **Notes**
+
+- Make sure to define all necessary environment variables before running the application to avoid any
+  configuration-related errors.
+- Update the `headers` section in `global.conf.js` based on the specifics of your API integrations (e.g., adding
+  authorization tokens).

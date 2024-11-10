@@ -1,254 +1,184 @@
 # PlaywrightActions
 
-## Overview
+## Table of Contents
 
-The `PlaywrightActions` class provides utility methods for interacting with frames and elements within a Playwright test context. It includes methods for switching frames, interacting with UI components, and performing common actions.
+1. [Overview](#overview)
+2. [Class Structure](#class-structure)
+    1. [Constructor](#constructor)
+    2. [Methods](#methods)
+        - [Frame Management](#frame-management)
+        - [Element Interaction](#element-interaction)
+        - [UI Component Interaction](#ui-component-interaction)
+        - [Keyboard Interaction](#keyboard-interaction)
+        - [Scrolling, Uploading, and Downloading](#scrolling-uploading-and-downloading)
+3. [Usage Example](#usage-example)
+4. [Conclusion](#conclusion)
+
+---
+
+## Overview:
+
+The `PlaywrightActions` class provides a collection of utility methods designed to simplify automation tasks in
+Playwright tests. It allows easy interaction with UI components, frames, elements, and even handles common keyboard and
+file operations.
 
 ### Author
-Hexdee606 
-Date: 2024-09-22
 
-## Class Structure
+**Hexdee606**  
+Date: *2024-11-10*
+
+---
+
+## Class Structure:
 
 ### Constructor
 
 ```javascript
 constructor(verbose = false)
 ```
-- **Parameters**:
-    - `verbose` (boolean): Enables verbose logging.
 
-### Methods
+- **verbose** (boolean) – Enables verbose logging for debugging and detailed output.
 
-#### Frame Management
+---
 
-- **`getCurrentFrameStatus()`**
-    - **Purpose**: Retrieves the current frame status.
-    - **Returns**: An object containing:
-        - `setFramePath` (string): The path of the current frame.
-        - `setFrame` (boolean): Indicates if a frame is set.
+## Methods
 
-- **`switchTo(page, selector)`**
-    - **Purpose**: Switches the context to a specified frame using a selector.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the frame element.
-    - **Returns**: `Promise<void>`
+### Frame Management:
 
-- **`switchFrame(page)`**
-    - **Purpose**: Retrieves the current frame or returns the main page if no frame is set.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-    - **Returns**: `Promise<Page>`
+These methods help manage frames in a Playwright page context. You can switch between frames, retrieve the current
+frame, and check if a frame is set.
 
-#### Element Interaction
+| Method                     | Description                                             |
+|----------------------------|---------------------------------------------------------|
+| `getCurrentFrameStatus()`  | Retrieves the current frame status.                     |
+| `switchTo(page, selector)` | Switches to a specified frame using a selector.         |
+| `switchFrame(page)`        | Switches to the current frame or returns the main page. |
 
-- **`waitAndClick(page, selector)`**
-    - **Purpose**: Waits for an element to be visible and clicks it.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the element to click.
-    - **Returns**: `Promise<void>`
-
-- **`checkCheckbox(page, selector)`**
-    - **Purpose**: Checks a checkbox element.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the checkbox.
-    - **Returns**: `Promise<void>`
-
-- **`uncheckCheckbox(page, selector)`**
-    - **Purpose**: Unchecks a checkbox element.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the checkbox.
-    - **Returns**: `Promise<void>`
-
-- **`selectRadioButton(page, selector)`**
-    - **Purpose**: Selects a radio button element.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the radio button.
-    - **Returns**: `Promise<void>`
-
-- **`waitAndFillField(page, selector, text)`**
-    - **Purpose**: Fills a text input element.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the text input.
-        - `text` (string): The text to fill in.
-    - **Returns**: `Promise<void>`
-
-- **`waitAndFillFieldSequentially(page, selector, text)`**
-    - **Purpose**: Fills a text input element sequentially.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the text input.
-        - `text` (string): The text to fill in.
-    - **Returns**: `Promise<void>`
-
-- **`clearText(page, selector)`**
-    - **Purpose**: Clears the text in a text input element.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the text input.
-    - **Returns**: `Promise<void>`
-
-- **`getTextFromLocator(page, selector)`**
-    - **Purpose**: Retrieves text content from a specified locator.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the element.
-    - **Returns**: `Promise<string>` - The text content of the element.
-
-- **`getTextFromAttribute(page, selector, attribute)`**
-    - **Purpose**: Retrieves the value of a specified attribute from an element.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the element.
-        - `attribute` (string): The attribute to retrieve.
-    - **Returns**: `Promise<string>` - The value of the specified attribute.
-
-- **`validateElementIsEnabled(page, selector)`**
-    - **Purpose**: Validates if an element is enabled.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the element.
-    - **Returns**: `Promise<void>`
-
-- **`validateElementIsDisabled(page, selector)`**
-    - **Purpose**: Validates if an element is disabled.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the element.
-    - **Returns**: `Promise<void>`
-
-- **`validateIsSelected(page, selector)`**
-    - **Purpose**: Validates if a checkbox or radio button is selected.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the element.
-    - **Returns**: `Promise<void>`
-
-#### UI Component Interaction
-
-- **`selectDropdownOption(page, dropdownSelector, optionSelector)`**
-    - **Purpose**: Selects an option from a dropdown menu.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `dropdownSelector` (string): The selector for the dropdown menu.
-        - `optionSelector` (string): The selector for the option to select.
-    - **Returns**: `Promise<void>`
-
-- **`acceptAlert(page)`**
-    - **Purpose**: Accepts a JavaScript alert dialog.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-    - **Returns**: `Promise<void>`
-
-- **`dismissAlert(page)`**
-    - **Purpose**: Dismisses a JavaScript alert dialog.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-    - **Returns**: `Promise<void>`
-
-- **`waitAndSee(page, selector)`**
-    - **Purpose**: Waits for an element to be visible.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the element.
-    - **Returns**: `Promise<void>`
-
-- **`mouseHover(page, selector)`**
-    - **Purpose**: Waits for an element to be visible and then performs a hover action on it.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the element.
-    - **Returns**: `Promise<void>`
-
-- **`getCurrentUrl(page)`**
-    - **Purpose**: Retrieves the current URL of the page.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-    - **Returns**: `Promise<string>` - The current URL of the page.
-
-- **`waitAndVisible(page, selector)`**
-    - **Purpose**: Waits for an element to be visible and returns a boolean indicating its visibility.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the element.
-    - **Returns**: `Promise<boolean>` - `true` if the element is visible, `false` otherwise.
-
-#### Keyboard Interaction
-
-- **`pressKey(page, key)`**
-    - **Purpose**: Presses a specified key.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `key` (string): The key to press (e.g., 'Enter', 'Escape').
-    - **Returns**: `Promise<void>`
-
-- **`holdKey(page, key)`**
-    - **Purpose**: Holds down a specified key.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `key` (string): The key to hold down.
-    - **Returns**: `Promise<void>`
-
-- **`releaseKey(page, key)`**
-    - **Purpose**: Releases a specified key.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `key` (string): The key to release.
-    - **Returns**: `Promise<void>`
-
-#### Scrolling, Uploading, and Downloading
-
-- **`scrollToElement(page, selector)`**
-    - **Purpose**: Scrolls the page to make a specified element visible.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the element to scroll to.
-
-
-- **Returns**: `Promise<void>`
-
-- **`uploadFile(page, selector, filePath)`**
-    - **Purpose**: Uploads a file or multiple files using a specified input element.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the file input element.
-        - `filePath` (string|string[]): The path(s) to the file(s) to upload.
-    - **Returns**: `Promise<void>`
-
-- **`downloadFile(page, selector, downloadPath)`**
-    - **Purpose**: Downloads a file by clicking the specified element and waiting for the download event.
-    - **Parameters**:
-        - `page` (Page): The Playwright Page object.
-        - `selector` (string): The selector for the element that triggers the download.
-        - `downloadPath` (string): The path where the file should be saved.
-    - **Returns**: `Promise<void>`
-
-## Usage Example
+#### Example:
 
 ```javascript
-const playwrightActions = require('./path/to/PlaywrightActions');
+const frameStatus = await playwrightActions.getCurrentFrameStatus(page);
+console.log(frameStatus.setFramePath); // Outputs current frame path
+```
+
+---
+
+### Element Interaction:
+
+These methods allow interaction with various elements on the page like buttons, checkboxes, radio buttons, text inputs,
+etc.
+
+| Method                                               | Description                                           |
+|------------------------------------------------------|-------------------------------------------------------|
+| `waitAndClick(page, selector)`                       | Waits for an element to become visible and clicks it. |
+| `checkCheckbox(page, selector)`                      | Checks a checkbox element.                            |
+| `uncheckCheckbox(page, selector)`                    | Unchecks a checkbox element.                          |
+| `selectRadioButton(page, selector)`                  | Selects a radio button.                               |
+| `waitAndFillField(page, selector, text)`             | Fills in a text input.                                |
+| `waitAndFillFieldSequentially(page, selector, text)` | Fills a text input sequentially.                      |
+| `clearText(page, selector)`                          | Clears the text from a text input.                    |
+| `getTextFromLocator(page, selector)`                 | Retrieves text from a specified locator.              |
+| `getTextFromAttribute(page, selector, attribute)`    | Gets the value of an attribute from an element.       |
+| `validateElementIsEnabled(page, selector)`           | Checks if an element is enabled.                      |
+| `validateElementIsDisabled(page, selector)`          | Checks if an element is disabled.                     |
+| `validateIsSelected(page, selector)`                 | Checks if a checkbox or radio button is selected.     |
+
+#### Example:
+
+```javascript
+await playwrightActions.waitAndClick(page, 'button#submit');
+await playwrightActions.checkCheckbox(page, 'input#accept');
+```
+
+---
+
+### UI Component Interaction:
+
+This section covers UI component-related methods, including handling dropdowns, alerts, and mouse hover actions.
+
+| Method                                                         | Description                             |
+|----------------------------------------------------------------|-----------------------------------------|
+| `selectDropdownOption(page, dropdownSelector, optionSelector)` | Selects an option from a dropdown menu. |
+| `acceptAlert(page)`                                            | Accepts a JavaScript alert dialog.      |
+| `dismissAlert(page)`                                           | Dismisses a JavaScript alert dialog.    |
+| `waitAndSee(page, selector)`                                   | Waits for an element to be visible.     |
+| `mouseHover(page, selector)`                                   | Performs a hover action on an element.  |
+
+#### Example:
+
+```javascript
+await playwrightActions.selectDropdownOption(page, 'select#options', 'option#1');
+await playwrightActions.acceptAlert(page);
+```
+
+---
+
+### Keyboard Interaction:
+
+These methods simulate keyboard actions like pressing and holding keys.
+
+| Method                  | Description                 |
+|-------------------------|-----------------------------|
+| `pressKey(page, key)`   | Presses a specified key.    |
+| `holdKey(page, key)`    | Holds down a specified key. |
+| `releaseKey(page, key)` | Releases a specified key.   |
+
+#### Example:
+
+```javascript
+await playwrightActions.pressKey(page, 'Enter');
+await playwrightActions.holdKey(page, 'Shift');
+await playwrightActions.releaseKey(page, 'Shift');
+```
+
+---
+
+### Scrolling, Uploading, and Downloading:
+
+These methods help with scrolling, file uploads, and handling file downloads.
+
+| Method                                       | Description                                |
+|----------------------------------------------|--------------------------------------------|
+| `scrollToElement(page, selector)`            | Scrolls to make an element visible.        |
+| `uploadFile(page, selector, filePath)`       | Uploads a file using a file input.         |
+| `downloadFile(page, selector, downloadPath)` | Downloads a file by triggering a download. |
+
+#### Example:
+
+```javascript
+await playwrightActions.scrollToElement(page, 'div#content');
+await playwrightActions.uploadFile(page, 'input[type="file"]', '/path/to/file.png');
+```
+
+---
+
+## Usage Example:
+
+Here’s how you might use `PlaywrightActions` in a real test scenario.
+
+```javascript
+const {chromium} = require('playwright');
 
 (async () => {
-    const { chromium } = require('playwright');
     const browser = await chromium.launch();
     const page = await browser.newPage();
 
     await page.goto('https://example.com');
 
-    // Example of using PlaywrightActions
+    // Click a button after waiting for it to be visible
     await playwrightActions.waitAndClick(page, 'button#submit');
-    await playwrightActions.checkCheckbox(page, 'input#checkbox');
-    
+
+    // Check a checkbox
+    await playwrightActions.checkCheckbox(page, 'input#accept');
+
     await browser.close();
 })();
 ```
 
-## Conclusion
+---
 
-The `PlaywrightActions` class provides a comprehensive set of methods for interacting with web elements in Playwright. It simplifies test automation by encapsulating common actions in reusable methods, ensuring cleaner and more maintainable test code.
+## Conclusion:
+
+The `PlaywrightActions` class simplifies Playwright test automation by providing easy-to-use methods for interacting
+with frames, elements, and UI components. These utilities help make your test code more readable, maintainable, and
+efficient.

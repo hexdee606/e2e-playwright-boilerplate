@@ -1,96 +1,135 @@
-# Project Structure
+# 📁 **Project Structure**
 
-This project is organized into a structured directory layout, facilitating easy navigation and understanding of its components. Below is a breakdown of the folder structure and the purpose of each directory and file.
+This project is organized into a structured directory layout, facilitating easy navigation and understanding of its
+components. Below is a breakdown of the folder structure and the purpose of each directory and file.
 
 ```
-src/
-├── api/
-│   ├── models/
-│   └── pages/
-├── assets/
-├── data/
-│   ├── AssertiveStrings.js
-│   └── TestData.js
-├── downloads/
-├── graphql/
-│   ├── models/
-│   ├── mutations/
-│   ├── pages/
-│   └── queries/
-└── tests/
-│   ├── features/
-│   ├── pages/
-│   ├── step_definitions/
-└── utils/
+e2e-playwright-boilerplate/
+├── .gitignore
+├── package-lock.json
+├── package.json
+├── playwright.config.js
+├── README.md
+├── docs/
+│   ├── config/
+│   │   └── readme.md
+│   └── src/
+│       └── utils/
+│           ├── AccessibilityHelper.md
+│           ├── ApiHelper.md
+│           ├── BrowserStorageHelper.md
+│           ├── CommonFunctions.md
+│           ├── GraphqlHelper.md
+│           ├── JsonHelper.md
+│           └── PlaywrightActions.md
+├── resources/
+│   ├── config/
+│   │   ├── env.config.js
+│   │   └── globalEnv.config.js
+│   ├── data/
+│   │   ├── assertiveStrings.js
+│   │   └── testData.js
+│   ├── downloads/
+│   │   └── .gitkeep
+│   └── utils/
+│       ├── AccessibilityHelper.js
+│       ├── ApiHelper.js
+│       ├── BrowserStorageHelper.js
+│       ├── CommonFunctions.js
+│       ├── GraphqlHelper.js
+│       ├── JsonHelper.js
+│       └── PlaywrightActions.js
+└── src/
+    └── tests/
+        ├── api/
+        │   ├── features/
+        │   ├── pages/
+        │   └── step_definitions/
+        ├── graphql/
+        │   ├── features/
+        │   ├── mutations/
+        │   ├── pages/
+        │   ├── queries/
+        │   └── step_definitions/
+        ├── shared/
+        │   ├── contracts/
+        │   └── models/
+        └── ui/
+            ├── features/
+            ├── pages/
+            └── step_definitions/
 ```
 
+## 🗂️ **Directory Breakdown**
 
-## Directory Breakdown
+### `docs/`
+
+This directory contains documentation files that describe the project setup and utility usage.
+
+- **`config/`**: Contains configuration files related to the documentation, such as `readme.md`.
+- **`src/`**: Contains documentation for various utility functions (e.g., `ApiHelper.md`, `BrowserStorageHelper.md`,
+  etc.).
+
+### `resources/`
+
+This directory holds resource files like configuration files, test data, utilities, and downloaded files.
+
+- **`config/`**: Contains configuration files that define environment-specific settings.
+    - **`env.config.js`**: Holds environment-specific configurations for backend URLs and services.
+    - **`globalEnv.config.js`**: Contains global environment variables for the application.
+
+- **`data/`**: Contains sample and mock data files used for testing and validation.
+    - **`assertiveStrings.js`**: Contains UI validation text or assertive strings.
+    - **`testData.js`**: Holds sample or mock test data for test scenarios.
+
+- **`downloads/`**: Placeholder directory for downloaded files.
+    - **`.gitkeep`**: A placeholder file to keep the `downloads/` directory tracked in Git.
+
+- **`utils/`**: Contains utility modules for various functions used across the application.
+    - **`AccessibilityHelper.js`**: Utility for conducting accessibility tests across applications.
+    - **`ApiHelper.js`**: Manages API request/response handling.
+    - **`BrowserStorageHelper.js`**: Manages browser storage like localStorage and sessionStorage.
+    - **`CommonFunctions.js`**: Contains common functions for use across the application.
+    - **`GraphqlHelper.js`**: Utility for managing GraphQL queries and mutations.
+    - **`JsonHelper.js`**: Handles operations for working with JSON data.
+    - **`PlaywrightActions.js`**: Specific utility for Playwright-related actions used in end-to-end tests.
 
 ### `src/`
-This is the main source directory containing all project-related files and subdirectories.
 
-### `api/`
-This directory contains API-related components, organized into models and pages.
+This is the main source directory containing code files and test cases.
 
-- **`models/`**: This folder holds the variable bodies or objects used to call APIs. These models define the structure of the data that will be sent to and received from the API.
+- **`api/`**: Contains files related to API testing.
+    - **`models/`**: Defines data models used for API requests and responses.
+    - **`pages/`**: Contains logic for making API requests using models and updating data.
+    - **`step_definitions/`**: Contains step implementations for API-related test scenarios.
 
-- **`pages/`**: This directory contains objects and functions that help call the API to set the model data. It may include methods for making requests, handling responses, and updating models.
+- **`graphql/`**: Contains components related to GraphQL testing.
+    - **`models/`**: Defines GraphQL models for use in queries and mutations.
+    - **`mutations/`**: Contains GraphQL mutations for modifying data on the server.
+    - **`pages/`**: Contains functions that set GraphQL data models.
+    - **`queries/`**: Contains GraphQL query definitions to fetch data from the server.
+    - **`step_definitions/`**: Contains GraphQL-specific step implementations for testing.
 
-### `assets/`
-This directory is meant for static assets used in the project (e.g., images, stylesheets). The `.gitkeep` file shows it’s currently empty but is included for future use.
+- **`shared/`**: Contains common contracts and models shared across API and GraphQL testing.
+    - **`contracts/`**: Contains contract files defining the contract between API/GraphQL services and client apps.
+    - **`models/`**: Holds shared models used for API and GraphQL testing.
 
-### `data/`
-This directory contains data-related files that may provide sample data or utility functions.
+- **`ui/`**: Contains UI-related testing components.
+    - **`features/`**: Defines features written in Gherkin for Behavior-Driven Development (BDD).
+    - **`pages/`**: Contains page objects representing web pages in UI tests.
+    - **`step_definitions/`**: Contains step definitions for UI testing scenarios.
 
-- **`AssertiveStrings.js`**: This JavaScript file likely contains UI text strings or validation messages used across the application.
+### Notes
 
-- **`TestData.js`**: This file probably holds sample data or mock data used for testing purposes.
+- **`.gitkeep`**: These files are used to track empty directories in Git (e.g., `downloads/`), ensuring that the
+  directories remain in version control even when they don't contain files yet.
+- As the project evolves, additional files and directories may be added to enhance functionality or accommodate new
+  features.
 
-### `downloads/`
-A directory meant for downloaded files or resources. The `.gitkeep` file indicates it’s currently empty but is retained for version control.
-
-### `graphql/`
-This directory contains components related to GraphQL, organized into several subdirectories.
-
-- **`models/`**: This folder holds GraphQL models that define the structure of the data used in GraphQL queries and mutations.
-
-- **`mutations/`**: This directory is intended to contain GraphQL mutation definitions, which are used to modify data on the server.
-
-- **`pages/`**: This directory contains objects and functions that help call GraphQL to set model data, similar to the API pages.
-
-- **`queries/`**: This folder contains definitions for GraphQL queries, used to retrieve data from the server.
-
-### `tests/`
-This directory is dedicated to testing components of the application, organized into features and steps.
-
-- **`features/`**: This folder is used to create Behavior-Driven Development (BDD) features written in Gherkin syntax. It defines high-level behaviors and scenarios that are easy to read and understand.
-
-- **`pages/`**: This directory is likely to hold page objects, which represent the structure of web pages in end-to-end tests.
-
-- **`step_definitions/`**: This folder is for defining step implementations for testing scenarios, often used in conjunction with the feature files.
-
-### `utils/`
-This directory contains utility functions and helpers that provide common functionality used throughout the application.
-
-- **`ApiHelper.js`**: A utility module for managing API requests and responses.
-
-- **`BrowserStorageHelper.js`**: A helper for managing data stored in the browser, such as local storage and session storage.
-
-- **`CommonFunctions.js`**: This file contains common functions that can be reused across the application.
-
-- **`GraphqlHelper.js`**: A utility for handling GraphQL-specific requests and operations.
-
-- **`JsonHelper.js`**: A helper for manipulating and filtering JSON data.
-
-- **`PlaywrightActions.js`**: A utility module for performing actions specific to Playwright, likely used in end-to-end testing.
-
-
-## Notes
-
-- The `.gitkeep` files are placeholders that ensure the respective directories are tracked in version control, even if they are currently empty.
-- As the project evolves, additional files and directories may be added to enhance functionality or accommodate new features.
+---
 
 ## Conclusion
 
-This structured approach makes it easier to maintain and understand the codebase. By organizing files and directories by their purpose, developers can quickly locate and modify relevant components as needed.
+This structured approach to organizing the project ensures maintainability and scalability. By grouping files by their
+functionality and type, developers can easily navigate and update the codebase. Whether it's API testing, GraphQL
+integrations, or UI testing, this organization streamlines the development and testing process.
