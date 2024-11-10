@@ -348,16 +348,12 @@ Date: 2024-10-11
 
 ## 💡 Special Thanks to JetBrains
 
-I’d like to extend my sincere thanks to [**JetBrains**](https://www.jetbrains.com/) for providing amazing tools like **Aqua IDE** and **WebStorm**. 
+I’d like to express my sincere gratitude to [**JetBrains**](https://www.jetbrains.com/) for providing the incredible **Aqua IDE**. This powerful tool has significantly improved my development workflow by offering seamless integration with multiple languages and frameworks. It’s been an absolute game-changer, making coding faster, more efficient, and more enjoyable.
 
-With **Aqua IDE**, my workflow has been significantly streamlined with excellent support for multiple languages and frameworks, allowing me to work efficiently and with confidence. And **WebStorm** has truly elevated my experience with JavaScript. The advanced features, intelligent code assistance, and smooth integration have made a real difference in my productivity.
+Thank you, JetBrains, for such a fantastic tool! 🙏
 
-Having these tools at my disposal has made development not only easier but also more enjoyable. Keep up the fantastic work, JetBrains! 🙏
-
-🔧 Tools used:  
-- [Aqua IDE](https://www.jetbrains.com/aqua/)  
-- [WebStorm](https://www.jetbrains.com/webstorm/)
-
+🔧 **Tool used:**  
+- [Aqua IDE](https://www.jetbrains.com/aqua/)
 ---
 
 ### Tagging JetBrains:  
