@@ -139,9 +139,3 @@ well as common best practices.
 
 This utility is especially useful for integrating into automated test suites, ensuring accessibility issues are caught
 early and consistently across your application.
-
-### Future Improvements:
-
-- **Customizable Standards**: Allow users to define their own accessibility rules or provide additional configurations.
-- **Reporting**: Implementing more detailed reporting mechanisms (e.g., HTML/CSV reports) for violations found during
-  the check.

@@ -119,15 +119,6 @@ This is the main source directory containing code files and test cases.
     - **`pages/`**: Contains page objects representing web pages in UI tests.
     - **`step_definitions/`**: Contains step definitions for UI testing scenarios.
 
-### Notes
-
-- **`.gitkeep`**: These files are used to track empty directories in Git (e.g., `downloads/`), ensuring that the
-  directories remain in version control even when they don't contain files yet.
-- As the project evolves, additional files and directories may be added to enhance functionality or accommodate new
-  features.
-
----
-
 ## Conclusion
 
 This structured approach to organizing the project ensures maintainability and scalability. By grouping files by their

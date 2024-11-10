@@ -221,5 +221,3 @@ The `ApiHelper` class simplifies the process of making API requests with customi
 for different HTTP methods. Ensure to configure the environment properly for the API URL and any required headers.
 
 **Use this class to streamline your API interactions, reduce boilerplate code, and handle requests efficiently.**
-
-```

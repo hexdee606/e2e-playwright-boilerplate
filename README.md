@@ -119,13 +119,75 @@ e2e-playwright-boilerplate
                 └── 03-uiLetCodeDropdown_steps.js
 ```
 
-### Key Features
+### 🔑 **Key Features**
 
-- **Modular Directories**: The project is divided into different submodules based on functionality: API, GraphQL, UI,
-  and shared components.
-- **Flexible Configuration**: Configurations are separate, allowing easy updates and switching between environments.
-- **BDD Structure**: Test scenarios are written in Gherkin syntax for readability and easy collaboration.
+---
 
+1. **🧩 Modular Directories**  
+   Organize your project into distinct submodules (API, GraphQL, UI, shared components) to enhance maintainability and scalability.
+
+2. **⚙️ Flexible Configuration**  
+   Easily switch between different environments (dev, staging, production) with modular, environment-specific configurations.
+
+3. **📝 BDD with Cucumber**  
+   Write clear, readable test scenarios using Gherkin syntax to promote collaboration between technical and non-technical teams.
+
+4. **🏗️ Page Object Model (POM)**  
+   Use the Page Object Model design pattern to separate test logic from UI interactions, making updates and scaling tests easier.
+
+5. **♿ Accessibility Testing Support**  
+   Ensure compliance with WCAG standards, improving accessibility for users with disabilities.
+
+6. **🔄 Contract Testing**  
+   Verify that interactions between microservices and APIs follow predefined contracts, reducing integration risks.
+
+7. **🛠️ Custom Action Library**  
+   Leverage reusable, high-level Playwright actions for consistent, stable interactions across test scenarios.
+
+8. **📊 Verbose Logging & Frame Handling**  
+   Get detailed execution logs and advanced iframe handling for more thorough test coverage and easier debugging.
+
+9. **🚀 Suite-Based Testing with Parallel Browsing**  
+   Run test suites in parallel across different browsers to speed up test execution and improve cross-browser coverage.
+
+10. **📑 Allure Reporting**  
+    Access rich, interactive test reports with logs, screenshots, videos, and metrics for easier troubleshooting and insights.
+
+11. **🗂️ Organized Test Structure**  
+    Follow a clean, structured folder organization that enhances maintainability and readability of your code.
+
+12. **🌐 Powerful Playwright Configuration**  
+    Configure Playwright tests with fine-grained control over browser contexts, timeouts, retries, and parallel execution.
+
+13. **📅 ES6 Standards**  
+    Stick to modern ES6+ standards (async/await, classes, destructuring) for cleaner, more maintainable code.
+
+14. **🌍 Cross-Environment Compatibility**  
+    Seamlessly switch between environments (dev, staging, production) for consistent results across your testing pipeline.
+
+15. **🔄 CI/CD Ready**  
+    Integrate effortlessly into your Continuous Integration/Continuous Delivery pipelines for faster releases and higher-quality software.
+
+16. **🛠️ Robust Error Reporting**  
+    Receive detailed error reports with stack traces, logs, screenshots, and videos to expedite the debugging process.
+
+17. **📊 Test Data Management**  
+    Generate and manage dynamic test data to reduce reliance on hardcoded values and improve coverage.
+
+18. **🔄 Parallel Test Execution**  
+    Maximize resource utilization and reduce test runtime by executing tests in parallel.
+
+19. **🌍 Cross-Browser Testing**  
+    Test your application across multiple browsers (Chromium, WebKit, Firefox) to ensure consistency across platforms.
+
+20. **🔄 Retry Logic**  
+    Handle flaky tests with automatic retries to improve the stability of your test suite.
+
+21. **🏷️ Dynamic Test Execution Based on Tags**  
+    Execute tests selectively based on tags (e.g., `@smoke`, `@regression`) to optimize your testing workflow.
+
+22. **📸 Test Reports with Screenshots & Videos**  
+    Capture screenshots and videos of failed tests for easy inspection and troubleshooting.
 ---
 
 ## Installation
