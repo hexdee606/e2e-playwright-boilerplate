@@ -1,4 +1,4 @@
-@suit3
+@suit2
 Feature: Automated Drop-Down Interaction with Playwright
 
   Scenario: Selecting and validating an option from the dropdown list

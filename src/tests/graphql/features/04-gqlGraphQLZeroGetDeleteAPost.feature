@@ -1,4 +1,4 @@
-@suit4
+@suit3
 Feature: GET and POST methods of GraphQL
 
   Scenario: GET - Get a Post query

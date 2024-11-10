@@ -18,5 +18,26 @@ module.exports = {
     },
 
     XYCoordinates: {},
-    graphQLZeroGetDeleteAPostResponse: {}
+    graphQLZeroGetDeleteAPostResponse: {},
+    addAUserTestData: {
+        email: 'john.doe@example.com',
+        username: 'johndoe123',
+        password: 'SecureP@ssw0rd!',
+        name: {
+            firstname: 'John',
+            lastname: 'Doe'
+        },
+        address: {
+            city: 'New York',
+            street: '5th Avenue',
+            number: 101,
+            zipcode: '10001',
+            geolocation: {
+                lat: '40.7128',
+                long: '-74.0060'
+            }
+        },
+        phone: '+1-555-123-4567'
+    },
+    addAUserResponseData: {},
 }

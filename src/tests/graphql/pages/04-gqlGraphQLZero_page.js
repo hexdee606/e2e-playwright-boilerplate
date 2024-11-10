@@ -1,8 +1,8 @@
 import {expect} from "@playwright/test";
 import {query} from "../queries/04-gqlGraphQLZeroGetAPost";
 import {mutation} from "../mutations/04-gqlGraphQLZeroDeleteAPost";
-import {deleteData} from "../models/04-gqlGraphQLZeroDeleteAPost_model";
-import GraphQLZeroGetAPostContract from "../contracts/04-GraphQLZeroGetAPost_contract";
+import {deleteData} from "../../shared/models/04-gqlGraphQLZeroDeleteAPost_model";
+import GraphQLZeroGetAPostContract from "../../shared/contracts/04-GraphQLZeroGetAPost_contract";
 
 /**
  * Class representing the GraphQL API for a blogging platform.

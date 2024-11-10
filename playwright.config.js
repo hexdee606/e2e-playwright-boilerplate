@@ -20,8 +20,8 @@ let timeouts = {
 };
 
 defineBddConfig({
-    features: resolve(__dirname, './src/tests/features/**/*.feature'),      // Path to feature files
-    steps: resolve(__dirname, './src/tests/step_definitions/**/*_steps.js'),// Path to step definitions
+    features: resolve(__dirname, './src/tests/**/features/**/*.feature'),      // Path to feature files
+    steps: resolve(__dirname, './src/tests/**/step_definitions/**/*_steps.js'),// Path to step definitions
     statefulPoms: true,                                                     // Enable stateful POMs (Page Object Models)
     outputDir: resolve(__dirname, './src/features-gen'),                    // Output directory for generated files
     verbose: verbose

@@ -27,7 +27,7 @@ const envConf = {
             },
             backend: {
                 api: {
-                    url: 'https://reqres.in/api' // Base URL for REST API
+                    url: 'https://fakestoreapi.com/' // Base URL for REST API
                 },
                 gql: {
                     url: 'https://graphqlzero.almansi.me/api' // Base URL for GraphQL API
