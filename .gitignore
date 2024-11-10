@@ -81,5 +81,5 @@ fabric.properties
 node_modules
 package-lock.json
 
-src/features-gen/**/*.*
-reports/**/*.*
+src/features-gen/**/**/*.*
+resources/test-results/**/**/*.*

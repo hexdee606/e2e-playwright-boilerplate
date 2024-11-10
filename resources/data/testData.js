@@ -1,0 +1,43 @@
+/**
+ * TestData.js
+ *
+ * This module exports test data objects used throughout the application for testing purposes.
+ * It serves as a centralized location for managing and maintaining sample data.
+ *
+ * Usage:
+ * - Import this module to access test data in your tests or other application components.
+ *
+ * Author: Hexdee606
+ * Date: 2024-09-21
+ */
+
+module.exports = {
+    fullName: {
+        firstName: "hexdee",
+        lastName: "606"
+    },
+
+    XYCoordinates: {},
+    graphQLZeroGetDeleteAPostResponse: {},
+    addAUserTestData: {
+        email: 'john.doe@example.com',
+        username: 'johndoe123',
+        password: 'SecureP@ssw0rd!',
+        name: {
+            firstname: 'John',
+            lastname: 'Doe'
+        },
+        address: {
+            city: 'New York',
+            street: '5th Avenue',
+            number: 101,
+            zipcode: '10001',
+            geolocation: {
+                lat: '40.7128',
+                long: '-74.0060'
+            }
+        },
+        phone: '+1-555-123-4567'
+    },
+    addAUserResponseData: {},
+}
