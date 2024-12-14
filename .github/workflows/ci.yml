@@ -24,7 +24,7 @@ jobs:
       run: npm ci
 
     - name: Install Chrome browser dependency for Playwright
-      run: npx playwright install --with-deps chrome
+      run: npx playwright install
 
     - name: Run end-to-end tests
       run: npm run test:e2e
