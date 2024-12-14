@@ -16,11 +16,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
+    
+    - name: Use Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 20.16.0
         cache: 'npm'
-    - run: npm i
-    - run: npm run test:e2e
-    - run: npm test:report-generate
+
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run end-to-end tests
+      run: npm run test:e2e
+
+    - name: Generate test report
+      run: npm run test:report-generate
+
