@@ -1,6 +1,3 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
 name: playwright boilerplate
 
 on:
@@ -25,10 +22,18 @@ jobs:
 
     - name: Install dependencies
       run: npm ci
-      
+
+    - name: Install browser dependencies
+      run: npx playwright install
+
     - name: Run end-to-end tests
       run: npm run test:e2e
 
-    - name: Generate test report
+    - name: Generate Allure test report
       run: npm run test:report-generate
 
+    - name: Upload Allure report as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: allure-report
+        path: ./resources/test-results/allure-results/  # Path to Allure report folder
