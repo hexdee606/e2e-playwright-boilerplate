@@ -23,17 +23,14 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Install browser dependencies
-      run: npx playwright install
+    - name: Install Chrome browser dependency for Playwright
+      run: npx playwright install --with-deps chrome
 
     - name: Run end-to-end tests
       run: npm run test:e2e
 
-    - name: Generate Allure test report
-      run: npm run test:report-generate
-
-    - name: Upload Allure report as artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: allure-report
-        path: ./resources/test-results/allure-results/  # Path to Allure report folder
+    - name:  Remove temporary files
+      run: |
+        echo "Cleaning up temporary files..."
+        rm -rf ./node_modules  # Optionally remove node_modules
+        echo "Cleanup completed."
